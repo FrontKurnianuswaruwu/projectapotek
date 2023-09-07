@@ -13,5 +13,6 @@ urlpatterns = [
     path('mastermkelompok', mastermkelompok, name='mastermkelompok'),
     path('updatmkelompok/<str:kode_kelompok>', updatmkelompok, name='updatmkelompok'),
     path('postupdatemkelompok', postupdatemkelompok, name='postupdatemkelompok'),
+    path('deletemkelompok<str:kode_kelompok>', deletemkelompok, name='deletemkelompok')
 
 ]
