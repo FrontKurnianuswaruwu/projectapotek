@@ -9,8 +9,12 @@ def index(request):
     }
     return render(request,'index.html',context)
 
+
+def index2(request):
+    return render(request,'index2.html')
+
 def tambahmkelompok(request):
-    return render(request, 'tambah-kelompok-barang.html')
+    return render(request,'tambah-kelompok-barang.html')
 
 def tambahkelompokpost(request):
     nama_kelompok = request.POST['nama_kelompok']
