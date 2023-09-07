@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <form action="{% url 'postupdatemkelompok' %}" method="POST">
+        {% csrf_token %}
+        <h1>TAMBAH KELOMPOK BARANG</h1>
+        <p>Kode Kelompok :</p>
+        <input type="text" name="kode_kelompok" id="kode_kelompok" value="{{ data_mkelompok.kode_kelompok }}"
+            maxlength="4" readonly required>
+        <p>Nama Kelompok :</p>
+        <input type="text" name="nama_kelompok" id="nama_kelompok" value="{{ data_mkelompok.nama_kelompok }}"
+            maxlength="30" required>
+        <p>Usertime :</p>
+        <input type="text" name="usertime" id="usertime" value="{{ data_mkelompok.usertime }}" required>
+
+        <br>
+        <br>
+        <button type="submit">SUBMIT</button>
+        <a href="{% url 'mastermkelompok' %}">KEMBALI</a>
+    </form>
+</body>
+
+</html>
