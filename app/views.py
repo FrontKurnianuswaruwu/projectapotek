@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Kelompok
 from django.contrib import messages
+from django.db.models import Q
 # Create your views here.
 def index(request):
     context= {
@@ -39,3 +40,41 @@ def tambahkelompokpost(request):
         tambah_kode_kelompok.save()
         messages.success(request, 'BERHASIL TAMBAH KELOMPOK')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def mastermkelompok(request):
+    data_mkelompok = Kelompok.objects.all()
+    context = {
+        'data_mkelompok' : data_mkelompok
+    }
+    return render (request,'master-mkelompok.html',context)
+
+def updatmkelompok(request, kode_kelompok):
+    data_mkelompok = Kelompok.objects.get(kode_kelompok=kode_kelompok)
+    context = {
+        'data_mkelompok': data_mkelompok
+    }
+    return render(request, 'update-mkelompok.html', context)    
+
+def postupdatemkelompok(request):
+    # ambil data dari POST
+    kode_kelompok = request.POST['kode_kelompok']
+    nama_kelompok = request.POST['nama_kelompok']
+    usertime = request.POST['usertime']
+    
+    #proses update
+    #ngecek kalo kode kelompok sama dengan kode kelompok yang ada didalm tabel
+    data_mkelompok = Kelompok.objects.get(kode_kelompok=kode_kelompok)
+    data_mkelompok.kode_kelompok = kode_kelompok
+    data_mkelompok.nama_kelompok = nama_kelompok
+    data_mkelompok.usertime = usertime
+    #simpan ke tabel
+    data_mkelompok.save()
+    messages.success(request, 'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def deletemkelompok(request, kode_kelompok):
+    Kelompok.objects.get(kode_kelompok=kode_kelompok).delete()
+    messages.success(request, 'BERHASIL HAPUS')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+    
