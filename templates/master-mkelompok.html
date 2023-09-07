@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>KELOMPOK BARANG</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <a href="{% url 'tambahmkelompok' %}">TAMBAH</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Kode Kelompok</th>
+                <th>Nama Kelompok</th>
+                <th>usertime</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mkelompok in data_mkelompok %}
+            <tr>
+                <td>{{ mkelompok.kode_kelompok }}</td>
+                <td>{{ mkelompok.nama_kelompok }}</td>
+                <td>{{ mkelompok.usertime }}</td>
+                <td>
+                    <a href="{% url 'updatmkelompok' mkelompok.kode_kelompok %}">UPDATE</a>
+                    <a onclick="return confirm('anda yakin menghapus kelompok barang dengan id = {{ mkelompok.kode_kelompok }}')"
+                        href="{% url 'deletemkelompok' mkelompok.kode_kelompok %}">DELETE</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
