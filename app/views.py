@@ -13,6 +13,8 @@ def index(request):
 
 def index2(request):
     return render(request,'index2.html')
+def dashboard(request):
+    return render(request,'dashboard.html')
 
 def tambahmkelompok(request):
     return render(request,'tambah-kelompok-barang.html')
