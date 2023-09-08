@@ -66,7 +66,7 @@ def postupdatemkelompok(request):
     usertime = request.POST['usertime']
     
     #proses update
-    #ngecek kalo kode kelompok sama dengan kode kelompok yang ada didalm tabel
+    #ngambil data 
     data_mkelompok = Kelompok.objects.get(kode_kelompok=kode_kelompok)
     data_mkelompok.kode_kelompok = kode_kelompok
     data_mkelompok.nama_kelompok = nama_kelompok
