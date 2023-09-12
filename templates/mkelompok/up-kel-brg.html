@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <form action="{% url 'postup' %}" method="POST">
+        {% csrf_token %}
+        <h1>UPDATE</h1>
+        <p>ID :</p>
+        <input type="text" name="id" id="id" value="{{ data_mapotik.id }}"  required >
+        <p>Nama Apotik :</p>
+        <input type="text" name="nama_apotik" id="nama_apotik" value="{{ data_mapotik.nama_apotik }}" maxlength="100" required>
+        <p>Alamat Apotik :</p>
+        <input type="text" name="alamat_apotik" id="alamat_apotik" value="{{ data_mapotik.alamat_apotik }}" maxlength="200" required>
+        <p>Telepon Apotik :</p>
+        <input type="text" name="telepon_retail" id="telepon_retail" value="{{ data_mapotik.telepon_retail }}" maxlength="20" required>
+        <p>owner :</p>
+        <input type="text" name="owner" id="owner" value="{{ data_mapotik.owner }}" maxlength="50" required>
+        <p>kontak_person :</p>
+        <input type="text" name="kontak_person" id="kontak_person" value="{{ data_mapotik.kontak_person }}" maxlength="40" required>
+        <br>
+        <br>
+        <button type="submit">SUBMIT</button>
+        <a href="{% url 'v' %}">Kembali</a>
+
+    </form>
+</body>
+
+</html>

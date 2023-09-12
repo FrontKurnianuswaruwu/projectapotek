@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Kelompok
+from .models import Kelompok,mapotik
 from django.contrib import messages
 from django.db.models import Q
 # Create your views here.
@@ -83,4 +83,57 @@ def deletemkelompok(request, kode_kelompok):
     messages.success(request, 'BERHASIL HAPUS')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
-    
+def add(request):
+    return render(request,'mkelompok/add-kel-brg')
+
+def postadd(request):
+    nama_apotik = request.POST['nama_apotik']
+    alamat_apotik = request.POST['alamat_apotik']
+    telepon_retail = request.POST['telepon_retail']
+    owner = request.POST['owner']
+    kontak_person = request.POST['kontak_person']
+
+    data_mapotik = mapotik(
+        nama_apotik = nama_apotik,
+        alamat_apotik = alamat_apotik,
+        telepon_retail = telepon_retail,
+        owner = owner,
+        kontak_person = kontak_person,
+    )
+    data_mapotik.save()
+    messages.success(request, 'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def v(request):
+    data_mapotik = mapotik.objects.all()
+    context = {
+        'data_mapotik' : data_mapotik
+    }
+    return render(request,'mkelompok/v-kel-brg.html', context)
+def up(request, id):
+    data_mapotik = mapotik.objects.get(id = id)
+    context = {
+        'data_mapotik' : data_mapotik
+    }
+    return render(request, 'mkelompok/up-kel-brg.html', context)
+
+def postup(request):
+    id = request.POST['id']
+    nama_apotik = request.POST['nama_apotik']
+    alamat_apotik = request.POST['alamat_apotik']
+    telepon_retail = request.POST['telepon_retail']
+    owner = request.POST['owner']
+    kontak_person = request.POST['kontak_person']
+
+    data_mapotik = mapotik.objects.get( id=id)
+    data_mapotik.id = id
+    data_mapotik.nama_apotik = nama_apotik
+    data_mapotik.alamat_apotik = alamat_apotik
+    data_mapotik.telepon_retail = telepon_retail
+    data_mapotik.owner = owner
+    data_mapotik.kontak_person = kontak_person
+
+    data_mapotik.save()
+    messages.success(request, 'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
