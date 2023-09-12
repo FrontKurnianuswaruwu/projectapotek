@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Kelompok,mapotik
+from .models import Kelompok,mapotik,mjenis
 from django.contrib import messages
 from django.db.models import Q
 # Create your views here.
@@ -135,5 +135,80 @@ def postup(request):
 
     data_mapotik.save()
     messages.success(request, 'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def addmjenis(request):
+    kode_mkelompok = Kelompok.objects.filter()
+    context = {
+        'kode_mkelompok' : kode_mkelompok
+    }
+    return render(request, 'mjenis/add-kel-brg.html', context)
+
+def postaddmjenis(request):
+    nama_jenis = request.POST['nama_jenis']
+    kode_kelompok = request.POST['kode_kelompok']
+    Status_ppn = request.POST['Status_ppn']
+
+    # Ambil huruf pertama dari nama_kelompok
+    first_letter = nama_jenis[0].upper()
+    # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_jenis = mjenis.objects.filter(kode_jenis__startswith=first_letter)
+    # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_jenis.filter(kode_jenis=first_letter + str(number).zfill(3)).exists():
+        number += 1
+    # Setel kode_kelompok dengan format yang sesuai
+    kode_jenis = first_letter + str(number).zfill(3)
+    
+    # jika ada kode kelompok yang sama maka akan ada pesan error
+    
+
+    tambah_mjenis = mjenis(
+        kode_jenis = kode_jenis,
+        kode_kelompok = kode_kelompok,
+        nama_jenis =nama_jenis,
+        status_ppn = Status_ppn,
+    )
+    tambah_mjenis.save()
+    messages.success(request, 'BERHASIL TAMBAH JENIS BARANG')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def vmjenis(request):
+    data_mjenis = mjenis.objects.all()
+    context = {
+        'data_mjenis' : data_mjenis
+    }
+    return render(request, 'mjenis/v-jenis-brg.html', context)
+    
+def upmjenis(request, kode_jenis):
+    data_mjenis = mjenis.objects.get(kode_jenis = kode_jenis)
+    kode_mkelompok = Kelompok.objects.filter()
+    context = {
+        'data_mjenis' : data_mjenis,
+        'kode_mkelompok' : kode_mkelompok
+    }
+    return render(request, 'mjenis/up-jenis-brg.html',context)
+
+def postupmjenis(request):
+    kode_jenis = request.POST['kode_jenis']
+    nama_jenis = request.POST['nama_jenis']
+    kode_kelompok = request.POST['kode_kelompok']
+    status_ppn = request.POST['status_ppn']
+    usertime = request.POST['usertime']
+
+    data_mjenis = mjenis.objects.get(kode_jenis=kode_jenis)
+    data_mjenis.kode_jenis = kode_jenis
+    data_mjenis.nama_jenis = nama_jenis
+    data_mjenis.kode_kelompok = kode_kelompok
+    data_mjenis.status_ppn = status_ppn
+    data_mjenis.usertime = usertime
+
+    data_mjenis.save()
+    messages.success(request, 'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def delmjenis(request, kode_jenis):
+    mjenis.objects.get(kode_jenis=kode_jenis).delete()
+    messages.success(request, 'BERHASIL HAPUS DATA')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 

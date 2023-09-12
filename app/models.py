@@ -14,3 +14,11 @@ class mapotik(models.Model):
     telepon_retail = models.CharField(max_length=20)
     owner = models.CharField(max_length=50)
     kontak_person = models.CharField(max_length=40)
+
+class mjenis(models.Model):
+    kode_jenis = models.CharField(max_length=4, primary_key=True)
+    nama_jenis = models.CharField(max_length=100)
+    kode_kelompok = models.CharField(max_length=4)
+    status_ppn = models.CharField(max_length=20)
+    usertime = models.DateTimeField(auto_now=True)
+    

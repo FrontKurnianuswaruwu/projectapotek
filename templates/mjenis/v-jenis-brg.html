@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>KELOMPOK BARANG</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <a href="{% url 'addmjenis' %}">TAMBAH</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Kode Jenis</th>
+                <th>Nama Jenis</th>
+                <th>Kode Kelompok</th>
+                <th>Satatus PPN</th>
+                <th>Usertime</th>
+                <th>Kontak Person</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mjenis in data_mjenis %}
+            <tr>
+                <td>{{ mjenis.kode_jenis}}</td>
+                <td>{{ mjenis.nama_jenis }}</td>
+                <td>{{ mjenis.kode_kelompok }}</td>
+                <td>{{ mjenis.status_ppn }}</td>
+                <td>{{ mjenis.usertime }}</td>
+                <td>
+                    <a href="{% url 'upmjenis' mjenis.kode_jenis  %}">UPDATE</a>
+                    <a onclick="return confirm('anda yakin menghapus jenis barang dengan id = {{ mjenis.kode_jenis }}')"
+                        href="{% url 'delmjenis' mjenis.kode_jenis %}">DELETE</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
