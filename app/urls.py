@@ -1,6 +1,6 @@
 from django.urls import path
 
-from.views import index,postup,up,v,tambahmkelompok,tambahkelompokpost,mastermkelompok,postadd,updatmkelompok,postupdatemkelompok,deletemkelompok,index2,dashboard,add
+from.views import index,delmjenis,postupmjenis,upmjenis,vmjenis,postaddmjenis,addmjenis,postup,up,v,tambahmkelompok,tambahkelompokpost,mastermkelompok,postadd,updatmkelompok,postupdatemkelompok,deletemkelompok,index2,dashboard,add
 
 
 urlpatterns = [
@@ -19,5 +19,13 @@ urlpatterns = [
     path('postadd', postadd, name='postadd'),
     path('v', v , name='v'),
     path('up/<str:id>', up, name='up',),
-    path('postup', postup, name='postup')
+    path('postup', postup, name='postup'),
+
+    #Table Mjenis
+    path('addmjenis', addmjenis, name='addmjenis'),
+    path('postaddmjenis', postaddmjenis, name='postaddmjenis'),
+    path('vmjenis', vmjenis, name='vmjenis'),
+    path('upmjenis/<str:kode_jenis>', upmjenis, name='upmjenis'),
+    path('postupmjenis', postupmjenis, name='postupmjenis'),
+    path('delmjenis/<str:kode_jenis>',delmjenis ,name='delmjenis')
 ]
