@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>KELOMPOK BARANG</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kode Apotik</th>
+                <th>Alamat Apotik</th>
+                <th>Telepon</th>
+                <th>Owner</th>
+                <th>Kontak Person</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mapotik in data_mapotik %}
+            <tr>
+                <td>{{ mapotik.id}}</td>
+                <td>{{ mapotik.nama_apotik }}</td>
+                <td>{{ mapotik.alamat_apotik }}</td>
+                <td>{{ mapotik.telepon_retail }}</td>
+                <td>{{ mapotik.owner }}</td>
+                <td>{{ mapotik.kontak_person }}</td>
+                <td>
+                    <a href="{% url 'up' mapotik.id %}">UPDATE</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
