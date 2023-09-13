@@ -21,4 +21,11 @@ class mjenis(models.Model):
     kode_kelompok = models.CharField(max_length=4)
     status_ppn = models.CharField(max_length=20)
     usertime = models.DateTimeField(auto_now=True)
+ 
+# Table Data Satuan
+class msatuan(models.Model): 
+    kode_satuan = models.CharField(max_length=4, primary_key=True)
+    nama_satuan = models.CharField(max_length=50)
+    nama_singkat = models.CharField(max_length=100)
+    usertime =models.DateTimeField(auto_now=True)
     
