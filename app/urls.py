@@ -1,6 +1,6 @@
 from django.urls import path
 
-from.views import index,delmjenis,postupmjenis,upmjenis,vmjenis,postaddmjenis,addmjenis,postup,up,v,tambahmkelompok,tambahkelompokpost,mastermkelompok,postadd,updatmkelompok,postupdatemkelompok,deletemkelompok,index2,dashboard,add
+from.views import index,postupmsatuan,delmsatuan,upmsatuan,vmsatuan,postaddmsatuan,addmsatuan,delmjenis,postupmjenis,upmjenis,vmjenis,postaddmjenis,addmjenis,postup,up,v,tambahmkelompok,tambahkelompokpost,mastermkelompok,postadd,updatmkelompok,postupdatemkelompok,deletemkelompok,index2,dashboard,add
 
 
 urlpatterns = [
@@ -27,5 +27,14 @@ urlpatterns = [
     path('vmjenis', vmjenis, name='vmjenis'),
     path('upmjenis/<str:kode_jenis>', upmjenis, name='upmjenis'),
     path('postupmjenis', postupmjenis, name='postupmjenis'),
-    path('delmjenis/<str:kode_jenis>',delmjenis ,name='delmjenis')
+    path('delmjenis/<str:kode_jenis>',delmjenis ,name='delmjenis'),
+    
+    #Table Data Satuan
+    path('addmsatuan', addmsatuan, name='addmsatuan' ),
+    path('postaddmsatuan', postaddmsatuan, name='postaddmsatuan'),
+    path('vmsatuan', vmsatuan, name='vmsatuan'),
+    path('upmsatuan/<str:kode_satuan>',upmsatuan, name='upmsatuan' ),
+    path('postupmsatuan', postupmsatuan, name='postupmsatuan'),
+    path('delmsatuan/<str:kode_satuan>',delmsatuan ,name='delmsatuan'),
+
 ]

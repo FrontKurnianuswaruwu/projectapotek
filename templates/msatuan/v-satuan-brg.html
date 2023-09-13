@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>KELOMPOK BARANG</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <a href="{% url 'addmsatuan' %}">TAMBAH</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Kode Satuan</th>
+                <th>Nama Satuan</th>
+                <th>Nama Singkat</th>
+                <th>Usertime</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msatuan in data_msatuan %}
+            <tr>
+                <td>{{ msatuan.kode_satuan}}</td>
+                <td>{{ msatuan.nama_satuan }}</td>
+                <td>{{ msatuan.nama_singkat }}</td>
+                <td>{{ msatuan.usertime }}</td>
+                <td>
+                    <a href="{% url 'upmsatuan' msatuan.kode_satuan  %}">UPDATE</a>
+                    <a onclick="return confirm('anda yakin menghapus jenis barang dengan id = {{ msatuan.kode_satuan }}')"
+                        href="{% url 'delmsatuan' msatuan.kode_satuan %}">DELETE</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

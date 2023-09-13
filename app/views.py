@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Kelompok,mapotik,mjenis
+from .models import Kelompok,mapotik,mjenis,msatuan
 from django.contrib import messages
 from django.db.models import Q
 # Create your views here.
@@ -10,9 +10,9 @@ def index(request):
     }
     return render(request,'index.html',context)
 
-
 def index2(request):
     return render(request,'index2.html')
+
 def dashboard(request):
     return render(request,'dashboard.html')
 
@@ -212,3 +212,67 @@ def delmjenis(request, kode_jenis):
     messages.success(request, 'BERHASIL HAPUS DATA')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+def addmsatuan(request):
+    return render(request,'msatuan/add-satuan-brg.html')
+
+def postaddmsatuan(request):
+    nama_satuan = request.POST['nama_satuan']
+    nama_singkat = request.POST['nama_singkat']
+    
+     # Ambil huruf pertama dari nama_kelompok
+    first_letter = nama_satuan[0].upper()
+    # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_jenis = msatuan.objects.filter(kode_satuan__startswith=first_letter)
+    # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_jenis.filter(kode_satuan=first_letter + str(number).zfill(3)).exists():
+        number += 1
+    # Setel kode_kelompok dengan format yang sesuai
+    kode_satuan = first_letter + str(number).zfill(3)
+    
+    # jika ada kode kelompok yang sama maka akan ada pesan error
+    
+    data_msatuan = msatuan(
+        kode_satuan =kode_satuan,
+        nama_satuan = nama_satuan,
+        nama_singkat = nama_singkat,  
+    )
+    data_msatuan.save()
+    messages.success(request, 'BERHASIL TAMBAH JENIS BARANG')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def vmsatuan(request):
+    data_msatuan = msatuan.objects.all()
+    context = {
+        'data_msatuan' : data_msatuan
+    }    
+    return render(request, 'msatuan/v-satuan-brg.html',context)
+    
+def upmsatuan(request, kode_satuan):
+    data_msatuan = msatuan.objects.get(kode_satuan=kode_satuan)
+    context = {
+        'data_msatuan' : data_msatuan
+    }    
+    return render(request, 'msatuan/up-satuan-brg.html',context)
+    
+def postupmsatuan(request):
+    kode_satuan = request.POST['kode_satuan']
+    nama_satuan = request.POST['nama_satuan']
+    nama_singkat = request.POST['nama_singkat']
+    usertime = request.POST['usertime']
+    
+    data_msatuan = msatuan.objects.get(kode_satuan=kode_satuan)
+    data_msatuan.kode_satuan = kode_satuan
+    data_msatuan.nama_satuan = nama_satuan
+    data_msatuan.nama_singkat = nama_singkat
+    data_msatuan.usertime = usertime
+    
+    data_msatuan.save()
+    messages.success(request, 'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def delmsatuan(request , kode_satuan):
+    msatuan.objects.get(kode_satuan=kode_satuan).delete()
+    messages.success(request, 'BERHASIL HAPUS DATA')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+    
