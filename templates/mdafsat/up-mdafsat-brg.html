@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <form action="{% url 'postupmdafsat' %}" method="POST">
+        {% csrf_token %}
+        <h1>UPDATE</h1>
+        <p>Kode Daftar Satuan :</p>
+        <input type="text" name="kode_daftar_satuan" id="kode_daftar_satuan" value="{{ data_mdafsat.kode_daftar_satuan }}"  required readonly>
+        <p>Satuan Terbesar :</p>
+        <input type="text" name="satuan_terbesar" id="satuan_terbesar" value="{{ data_mdafsat.satuan_terbesar }}" required>
+        <p>Satuan Sedang :</p>
+        <input type="text" name="satuan_sedang" id="satuan_sedang" value="{{ data_mdafsat.satuan_sedang }}" required>
+        <p>Satuan Terkecil :</p>
+        <input type="text" name="satuan_terkecil" id="satuan_terkecil" value="{{ data_mdafsat.satuan_terkecil }}" required>
+        <p>Jumsat Terbesar :</p>
+        <input type="text" name="jumsat_terbesar" id="jumsat_terbesar" value="{{ data_mdafsat.jumsat_terbesar }}" required>
+        <p>Jumsat Sedang :</p>
+        <input type="text" name="jumsat_sedang" id="jumsat_sedang" value="{{ data_mdafsat.jumsat_sedang }}" required>
+        <p>Jumsat Terkecil :</p>
+        <input type="text" name="jumsat_terkecil" id="jumsat_terkecil" value="{{ data_mdafsat.jumsat_terkecil }}"  required>
+        <br>
+        <br>
+        <button type="submit">SUBMIT</button>
+        <a href="{% url 'vmdafsat' %}">Kembali</a>
+
+    </form>
+</body>
+
+</html>

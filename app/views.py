@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Kelompok,mapotik,mjenis,msatuan
+from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat
 from django.contrib import messages
 from django.db.models import Q
 # Create your views here.
@@ -16,6 +16,7 @@ def index2(request):
 def dashboard(request):
     return render(request,'dashboard.html')
 
+#Table Kelompok Barang
 def tambahmkelompok(request):
     return render(request,'tambah-kelompok-barang.html')
 
@@ -82,7 +83,9 @@ def deletemkelompok(request, kode_kelompok):
     Kelompok.objects.get(kode_kelompok=kode_kelompok).delete()
     messages.success(request, 'BERHASIL HAPUS')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+#End Table Kelompok Barang
 
+#Table Perusahaan Apotik
 def add(request):
     return render(request,'mkelompok/add-kel-brg')
 
@@ -110,6 +113,7 @@ def v(request):
         'data_mapotik' : data_mapotik
     }
     return render(request,'mkelompok/v-kel-brg.html', context)
+
 def up(request, id):
     data_mapotik = mapotik.objects.get(id = id)
     context = {
@@ -136,7 +140,9 @@ def postup(request):
     data_mapotik.save()
     messages.success(request, 'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+#End Table Perusahaan Apotik
 
+#Table Jenis Barang
 def addmjenis(request):
     kode_mkelompok = Kelompok.objects.filter()
     context = {
@@ -211,7 +217,9 @@ def delmjenis(request, kode_jenis):
     mjenis.objects.get(kode_jenis=kode_jenis).delete()
     messages.success(request, 'BERHASIL HAPUS DATA')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+#End Table Jenis Barang
 
+#Table Data Satuan
 def addmsatuan(request):
     return render(request,'msatuan/add-satuan-brg.html')
 
@@ -275,4 +283,87 @@ def delmsatuan(request , kode_satuan):
     msatuan.objects.get(kode_satuan=kode_satuan).delete()
     messages.success(request, 'BERHASIL HAPUS DATA')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+#End Table Data Satuan
+
+#Table Satuan Bertingkat
+def addmdafsat(request):
+    return render(request, 'mdafsat/add-mdafsat-brg.html') 
+
+def postaddmdafsat(request):
+    satuan_terbesar = request.POST['satuan_terbesar']
+    satuan_sedang = request.POST['satuan_sedang']
+    satuan_terkecil = request.POST['satuan_terkecil']
+    jumsat_terbesar = request.POST['jumsat_terbesar']
+    jumsat_sedang = request.POST['jumsat_sedang']
+    jumsat_terkecil = request.POST['jumsat_terkecil']
+    
+      # Ambil huruf pertama dari nama_kelompok
+    first_letter = satuan_terbesar[0].upper()
+    # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_jenis = mdafsat.objects.filter(kode_daftar_satuan__startswith=first_letter)
+    # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_jenis.filter(kode_daftar_satuan=first_letter + str(number).zfill(3)).exists():
+        number += 1
+    # Setel kode_kelompok dengan format yang sesuai
+    kode_daftar_satuan = first_letter + str(number).zfill(3)
+    
+    data_mdafsat = mdafsat(
+        kode_daftar_satuan = kode_daftar_satuan,
+        satuan_terbesar =satuan_terbesar,
+        satuan_sedang = satuan_sedang,
+        satuan_terkecil = satuan_terkecil,
+        jumsat_terbesar = jumsat_terbesar,
+        jumsat_sedang = jumsat_sedang,
+        jumsat_terkecil = jumsat_terkecil,
+    )
+    data_mdafsat.save()
+    messages.success(request, 'BERHASIL TAMBAH JENIS BARANG')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def vmdafsat(request):
+    data_mdafsat = mdafsat.objects.all()
+    context = {
+        'data_mdafsat' : data_mdafsat
+    }
+    return render(request, 'mdafsat/v-dafsat-brg.html',context)
+
+def upmdafsat(request, kode_daftar_satuan) :
+    data_mdafsat = mdafsat.objects.get(kode_daftar_satuan = kode_daftar_satuan)
+    context = {
+        'data_mdafsat' :data_mdafsat
+    }  
+    return render(request, 'mdafsat/up-mdafsat-brg.html',context)
+
+def postupmdafsat(request):
+    kode_daftar_satuan = request.POST['kode_daftar_satuan']
+    satuan_terbesar = request.POST['satuan_terbesar']
+    satuan_sedang = request.POST['satuan_sedang']
+    satuan_terkecil = request.POST['satuan_terkecil']
+    jumsat_terbesar = request.POST['jumsat_terbesar']
+    jumsat_sedang = request.POST['jumsat_sedang']
+    jumsat_terkecil = request.POST['jumsat_terkecil']
+    
+    data_mdafsat = mdafsat.objects.get(kode_daftar_satuan=kode_daftar_satuan)
+    data_mdafsat.kode_daftar_satuan = kode_daftar_satuan
+    data_mdafsat.satuan_terbesar = satuan_terbesar
+    data_mdafsat.satuan_sedang = satuan_sedang
+    data_mdafsat.satuan_terkecil = satuan_terkecil
+    data_mdafsat.jumsat_terbesar = jumsat_terbesar
+    data_mdafsat.jumsat_sedang = jumsat_sedang
+    data_mdafsat.jumsat_terkecil = jumsat_terkecil
+    
+    data_mdafsat.save()
+    messages.success(request, 'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def delmdafsat(request, kode_daftar_satuan):
+    mdafsat.objects.get(kode_daftar_satuan=kode_daftar_satuan).delete()
+    messages.success(request, 'BERHASIL HAPUS DATA')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+#End Table Satuan Bertingkat
+    
+        
+    
+    
     

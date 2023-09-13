@@ -1,6 +1,6 @@
 from django.urls import path
 
-from.views import index,postupmsatuan,delmsatuan,upmsatuan,vmsatuan,postaddmsatuan,addmsatuan,delmjenis,postupmjenis,upmjenis,vmjenis,postaddmjenis,addmjenis,postup,up,v,tambahmkelompok,tambahkelompokpost,mastermkelompok,postadd,updatmkelompok,postupdatemkelompok,deletemkelompok,index2,dashboard,add
+from.views import index,postupmdafsat,delmdafsat,vmdafsat,upmdafsat,addmdafsat,postaddmdafsat,postupmsatuan,delmsatuan,upmsatuan,vmsatuan,postaddmsatuan,addmsatuan,delmjenis,postupmjenis,upmjenis,vmjenis,postaddmjenis,addmjenis,postup,up,v,tambahmkelompok,tambahkelompokpost,mastermkelompok,postadd,updatmkelompok,postupdatemkelompok,deletemkelompok,index2,dashboard,add
 
 
 urlpatterns = [
@@ -36,5 +36,14 @@ urlpatterns = [
     path('upmsatuan/<str:kode_satuan>',upmsatuan, name='upmsatuan' ),
     path('postupmsatuan', postupmsatuan, name='postupmsatuan'),
     path('delmsatuan/<str:kode_satuan>',delmsatuan ,name='delmsatuan'),
+    
+    # Satuan Beritingkat
+    path('addmdafsat', addmdafsat,name="addmdafsat"),
+    path('postaddmdafsat', postaddmdafsat, name='postaddmdafsat'),
+    path('vmdafsat', vmdafsat, name='vmdafsat'),
+    path('upmdafsat/<str:kode_daftar_satuan>', upmdafsat, name='upmdafsat'),
+    path('postupmdafsat', postupmdafsat, name='postupmdafsat'),
+    path('delmdafsat<str:kode_daftar_satuan>', delmdafsat, name='delmdafsat')
+    
 
 ]

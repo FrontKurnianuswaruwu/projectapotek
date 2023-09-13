@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>KELOMPOK BARANG</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <a href="{% url 'addmdafsat' %}">TAMBAH</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Kode Daftar Satuan</th>
+                <th>Satuan Terbesar</th>
+                <th>Satuan Sedang </th>
+                <th>Satatus Terkecil</th>
+                <th>Jumsat Terbesar</th>
+                <th>Jumsat Sedang</th>
+                <th>Jumsat terkecil</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mdafsat in data_mdafsat %}
+            <tr>
+                <td>{{ mdafsat.kode_daftar_satuan}}</td>
+                <td>{{ mdafsat.satuan_terbesar }}</td>
+                <td>{{ mdafsat.satuan_sedang }}</td>
+                <td>{{ mdafsat.satuan_terkecil }}</td>
+                <td>{{ mdafsat.jumsat_terbesar }}</td>
+                <td>{{ mdafsat.jumsat_sedang }}</td>
+                <td>{{ mdafsat.jumsat_terkecil }}</td>
+                <td>
+                    <a href="{% url 'upmdafsat' mdafsat.kode_daftar_satuan  %}">UPDATE</a>
+                    <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ mdafsat.kode_daftar_satuan }}')"
+                        href="{% url 'delmdafsat' mdafsat.kode_daftar_satuan %}">DELETE</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
