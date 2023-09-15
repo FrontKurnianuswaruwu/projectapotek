@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat,admin
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth.hashers import make_password
+
 # Create your views here.
 def index(request):
     context= {
@@ -375,7 +377,7 @@ def postaddadmin(request):
         email = request.POST['email']
         telepon = request.POST['telepon']
         password = request.POST['password'] 
-        
+        password_hash = make_password(password)
            # Ambil huruf pertama dari nama_kelompok
         first_letter = "A"
         # Cari semua kelompok yang memiliki huruf awal yang sama
@@ -398,7 +400,7 @@ def postaddadmin(request):
                 username = username,
                 email = email,
                 telepon = telepon,
-                password = password
+                password = password_hash
             )
             data_admin.save()
             messages.success(request, 'BERHASIL REGISTER')
