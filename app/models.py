@@ -38,3 +38,27 @@ class mdafsat(models.Model):
     jumsat_sedang = models.CharField(max_length=50)
     jumsat_terkecil = models.CharField(max_length=50)
        
+class mbarang(models.Model):
+    kode_barang = models.CharField(max_length=4, primary_key=True)
+    nama_barang_lengkap = models.CharField(max_length=100)
+    nama_barang_penjualan = models.CharField(max_length=100)
+    jenis_barang = models.CharField(max_length=100)
+    satua_terkecil = models.CharField(max_length=50)
+    barcode_terkecil = models.CharField(max_length=20)
+    harga_pl_sebelum_ppn = models.CharField(max_length=100)
+    harga_pl_sesudah_ppn = models.CharField(max_length=100)
+    harga_pokok_penjualan = models.CharField(max_length=100)
+    margin_penjualan = models.CharField(max_length=50)
+    harga_penjualan_sat_terkecil = models.CharField(max_length=100)
+    tanggal_update_terakhir =  models.DateTimeField(auto_now=True)
+    kode_dafar_satuan = models.CharField(max_length=4)
+    status_aktif_barang = models.CharField(max_length=1,default="y")
+    usertime = models.DateTimeField(auto_now=True)
+    
+class admin(models.Model):
+    id_admin = models.CharField(max_length=4, primary_key=True)
+    username = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100, unique=True)
+    telepon = models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
+     
