@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat
+from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat,admin
 from django.contrib import messages
 from django.db.models import Q
 # Create your views here.
@@ -343,7 +343,7 @@ def postupmdafsat(request):
     jumsat_terbesar = request.POST['jumsat_terbesar']
     jumsat_sedang = request.POST['jumsat_sedang']
     jumsat_terkecil = request.POST['jumsat_terkecil']
-    
+
     data_mdafsat = mdafsat.objects.get(kode_daftar_satuan=kode_daftar_satuan)
     data_mdafsat.kode_daftar_satuan = kode_daftar_satuan
     data_mdafsat.satuan_terbesar = satuan_terbesar
@@ -362,8 +362,68 @@ def delmdafsat(request, kode_daftar_satuan):
     messages.success(request, 'BERHASIL HAPUS DATA')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 #End Table Satuan Bertingkat
-    
+
+#Data Barang
+
+#Admin
+def addadmin(request):
+    return render(request, 'madmin/add-admin-brg.html')
+
+def postaddadmin(request):
+    if request.method == 'POST':
+        username = request.POST['username'].upper()
+        email = request.POST['email']
+        telepon = request.POST['telepon']
+        password = request.POST['password'] 
         
+           # Ambil huruf pertama dari nama_kelompok
+        first_letter = "A"
+        # Cari semua kelompok yang memiliki huruf awal yang sama
+        existing_jenis = admin.objects.filter(id_admin__startswith=first_letter)
+        # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+        number = 1
+        while existing_jenis.filter(id_admin=first_letter + str(number).zfill(3)).exists():
+            number += 1
+        # Setel kode_kelompok dengan format yang sesuai
+        id_admin = first_letter + str(number).zfill(3)
+        
+        
+        if admin.objects.filter(email=email).exists():
+            messages.error(request, f'EMAIL {email} SUDAH DIGUNAKAN')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        
+        else :
+            data_admin = admin(
+                id_admin = id_admin,
+                username = username,
+                email = email,
+                telepon = telepon,
+                password = password
+            )
+            data_admin.save()
+            messages.success(request, 'BERHASIL REGISTER')
+            return redirect('login')
+def login(request):
+    return render(request, 'madmin/l-admin-brg.html')
+
+def postllogin(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    password2 = request.POST['password2']
+    
+    if admin.objects.filter(email=email).exists():
+        data_admin = admin.objects.get(email=email)
+        if password == password2:
+            request.session['id_admin'] = data_admin.id_admin
+            request.session['username'] = data_admin.username
+            request.session.save()
+            messages.success(request,'BERHASIL LOGIN')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        else :
+            messages.error(request, 'PASSWORD SALAH')
+    else:
+        messages.error(request,'ADMIN TIDAK DITEMUKAN')
+    return redirect(request.META.get('HTTP_REFERER', '/'))            
     
     
     

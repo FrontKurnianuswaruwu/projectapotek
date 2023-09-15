@@ -17,7 +17,7 @@
         {% csrf_token %}
         <h1>MAPOTIK</h1>
         <p>Satuan Terbesar :</p>
-        <input type="text" name="satuan_terbesar" id="satuan_terbesar" maxlength="100" readonly required>
+        <input type="text" name="satuan_terbesar" id="satuan_terbesar" maxlength="100"  required>
         <p>Satuan Sedang :</p>
         <input type="text" name="satuan_sedang" id="satuan_sedang" maxlength="100" required>
         <p>Satuan Terkecil :</p>
@@ -31,7 +31,7 @@
         <br>
         <br>
         <button type="submit">SUBMIT</button>
-        <a href="{% url 'v' %}">Kembali</a>
+        <a href="{% url 'vmdafsat' %}">Kembali</a>
 
     </form>
 </body>

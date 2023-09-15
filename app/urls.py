@@ -1,7 +1,7 @@
 from django.urls import path
 
-from.views import index,postupmdafsat,delmdafsat,vmdafsat,upmdafsat,addmdafsat,postaddmdafsat,postupmsatuan,delmsatuan,upmsatuan,vmsatuan,postaddmsatuan,addmsatuan,delmjenis,postupmjenis,upmjenis,vmjenis,postaddmjenis,addmjenis,postup,up,v,tambahmkelompok,tambahkelompokpost,mastermkelompok,postadd,updatmkelompok,postupdatemkelompok,deletemkelompok,index2,dashboard,add
-
+# from.views import index,postupmdafsat,delmdafsat,vmdafsat,upmdafsat,addmdafsat,postaddmdafsat,postupmsatuan,delmsatuan,upmsatuan,vmsatuan,postaddmsatuan,addmsatuan,delmjenis,postupmjenis,upmjenis,vmjenis,postaddmjenis,addmjenis,postup,up,v,tambahmkelompok,tambahkelompokpost,mastermkelompok,postadd,updatmkelompok,postupdatemkelompok,deletemkelompok,index2,dashboard,add
+from.views import *
 
 urlpatterns = [
     path('index', index, name='index'),
@@ -43,7 +43,11 @@ urlpatterns = [
     path('vmdafsat', vmdafsat, name='vmdafsat'),
     path('upmdafsat/<str:kode_daftar_satuan>', upmdafsat, name='upmdafsat'),
     path('postupmdafsat', postupmdafsat, name='postupmdafsat'),
-    path('delmdafsat<str:kode_daftar_satuan>', delmdafsat, name='delmdafsat')
+    path('delmdafsat<str:kode_daftar_satuan>', delmdafsat, name='delmdafsat'),
     
-
+    #Admin
+    path('addadmin', addadmin, name='addadmin'),
+    path('postaddadmin', postaddadmin, name='postaddadmin'),
+    path('login', login, name='login'),
+    path('postllogin', postllogin, name='postllogin')
 ]
