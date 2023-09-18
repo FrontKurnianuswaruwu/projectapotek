@@ -61,4 +61,5 @@ class admin(models.Model):
     email = models.EmailField(max_length=100, unique=True)
     telepon = models.CharField(max_length=20)
     password = models.CharField(max_length=100)
+
      

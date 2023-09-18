@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>KELOMPOK BARANG</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <a href="{% url 'addadmin' %}">TAMBAH</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID Admin</th>
+                <th>Nama</th>
+                <th>Email </th>
+                <th>Telepon</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for madmin in data_admin %}
+            <tr>
+                <td>{{ madmin.id_admin}}</td>
+                <td>{{ madmin.username }}</td>
+                <td>{{ madmin.email }}</td>
+                <td>{{ madmin.telepon }}</td>              <td>
+                    <a href="{% url 'update' madmin.id_admin  %}">UPDATE</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
