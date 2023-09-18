@@ -53,6 +53,5 @@ urlpatterns = [
     path('vadmin', vadmin, name='vadmin'),
     path('update/<str:id_admin>', update, name='update'),
     path('postupadmin', postupadmin, name='postupadmin'),
-    
     path('addmbarang', addmbarang, name='addmbarang' )
 ]
