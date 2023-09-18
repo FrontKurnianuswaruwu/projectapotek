@@ -17,11 +17,16 @@
         {% csrf_token %}
         <h1>BARANG</h1>
         <p>Nama Barang Lengkap :</p>
-        <input type="text" name="nama_barang_lengkap" id="nama_barang_lengkap" maxlength="100"  required>
+        <input type="text" name="nama_barang_lengkap" id="nama_barang_lengkap" maxlength="100" required>
         <p>Nama Barang Lengkap :</p>
         <input type="text" name="nama_barang_penjualan" id="nama_barang_penjulana" maxlength="100" required>
         <p>Jenis Barang :</p>
-        <input type="text" name="jenis_barang" id="jenis_barang" maxlength="100" required>
+        <select name="jenis_barang" id="jenis_barang" required>
+            <option value="" disabled selected>-Pilih Jenis-</option>
+            {% for mj in data_mjenis %}
+            <option value="{{ mj.nama_jenis }}">{{ mj.nama_jenis }}</option>
+            {% endfor %}
+        </select>
         <p>Satuan Terkecil :</p>
         <input type="text" name="satuan_terkecil" id="satuan_terkcil" maxlength="50" required>
         <p>Barcode Terkecil :</p>
