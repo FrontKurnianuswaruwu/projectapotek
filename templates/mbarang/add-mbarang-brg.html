@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <form action="{% url 'postaddmdafsat' %}" method="POST">
+        {% csrf_token %}
+        <h1>BARANG</h1>
+        <p>Nama Barang Lengkap :</p>
+        <input type="text" name="nama_barang_lengkap" id="nama_barang_lengkap" maxlength="100"  required>
+        <p>Nama Barang Lengkap :</p>
+        <input type="text" name="nama_barang_penjualan" id="nama_barang_penjulana" maxlength="100" required>
+        <p>Jenis Barang :</p>
+        <input type="text" name="jenis_barang" id="jenis_barang" maxlength="100" required>
+        <p>Satuan Terkecil :</p>
+        <input type="text" name="satuan_terkecil" id="satuan_terkcil" maxlength="50" required>
+        <p>Barcode Terkecil :</p>
+        <input type="text" name="barcode_terkecil" id="barcode_terkecil" maxlength="20" required>
+        <p>Harga PL Sebelum PPN :</p>
+        <input type="text" name="harga_pl_sebelum_ppn" id="harga_pl_sebelum_ppn" maxlength="100" required>
+        <br>
+        <br>
+        <button type="submit">SUBMIT</button>
+        <a href="{% url 'vmdafsat' %}">Kembali</a>
+
+    </form>
+</body>
+
+</html>

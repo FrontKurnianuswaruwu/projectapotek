@@ -54,11 +54,12 @@ class mbarang(models.Model):
     kode_dafar_satuan = models.CharField(max_length=4)
     status_aktif_barang = models.CharField(max_length=1,default="y")
     usertime = models.DateTimeField(auto_now=True)
-    
+       
 class admin(models.Model):
     id_admin = models.CharField(max_length=4, primary_key=True)
     username = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True)
     telepon = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=100)
+
      

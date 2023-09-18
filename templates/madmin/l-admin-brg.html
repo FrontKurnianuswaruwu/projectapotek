@@ -129,6 +129,7 @@
     <p>{{ message }}</p>
     {% endfor%}
     {% endif %}
+<<<<<<< HEAD
     <div class="container">
             <h1>Welcome To Apotik</h1>
                 <form action="{% url 'postllogin' %}" method="POST">
@@ -152,6 +153,23 @@
                 </form>
         </div>
     </div> 
+=======
+    <form action="{% url 'postllogin' %}" method="POST">
+        {% csrf_token %}
+        <h1>ADMIN</h1>
+        <p>Email :</p>
+        <input type="email" name="email" id="email" maxlength="100" required upper>
+        <p>Password :</p>
+        <input type="password" name="password" id="password" maxlength="100" required>
+        <p>Password 2 :</p>
+        <input type="password" name="password2" id="password2" maxlength="100" required>
+        <br>
+        <br>
+        <button type="submit">SUBMIT</button>
+        <a href="{% url 'vmdafsat' %}">Kembali</a>
+
+    </form>
+>>>>>>> e8d5914b1e7333ff2ca29d6fe6218ead38940b62
 </body>
 
 </html>
