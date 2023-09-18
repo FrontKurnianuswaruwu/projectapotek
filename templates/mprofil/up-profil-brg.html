@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <form action="{% url 'postupmsatuan' %}" method="POST">
+        {% csrf_token %}
+        <h1>UPDATE</h1>
+        <p>ID Apotik : </p>
+        <input type="text" name="id_apotik" id="id_apotik" value="{{ data_mprofil.id_apotik }}"  required readonly >
+        <p>Nama :</p>
+        <input type="text" name="nama" id="nama" value="{{ data_mprofil.nama }}"  required>
+        <p>Alamat :</p>
+        <input type="text" name="alamat" id="alamat" value="{{ data_mprofil.alamat }}"  required>
+        <br>
+        <p>Gambar :</p>
+        <img src="{{ data_mprofil.gambar }}" alt="Gambar Profil" id="preview-gambar">
+        <input type="file" name="gambar" id="gambar-input" accept="image/*" onchange="previewGambar(event)" required>
+
+        <p>Facebook :</p>
+        <input type="text" name="facebook" id="facebook" value="{{ data_mprofil.facebook }}"  required>
+        <br>
+        <button type="submit">SUBMIT</button>
+        <a href="{% url 'vmsatuan' %}">Kembali</a>
+
+    </form>
+    <script>
+        function previewGambar(event) {
+            const input = event.target;
+            const imgElement = document.getElementById('preview-gambar');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    imgElement.src = e.target.result;
+                };
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        </script>
+        
+</body>
+
+</html>
