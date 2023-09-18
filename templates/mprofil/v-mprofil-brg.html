@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>PROFIL</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor%}
+    {% endif %}
+    <a href="{% url 'addprofil' %}">TAMBAH</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Apotik</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Gambar</th>
+                <th>FECEBOOK</th>
+                <th>INSTAGRAM</th>
+                <th>EMAIL</th>
+                <th>WHATSAPP</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mprofil in data_mprofil %}
+            <tr>
+                <td>{{ mprofil.id_apotik}}</td>
+                <td>{{ mprofil.nama }}</td>
+                <td>{{ mprofil.alamat }}</td>
+                <td><img style="width:100px" src="{{mprofil.gambar}}" alt=""></td>
+                <td>{{ mprofil.facebook }}</td>
+                <td>{{ mprofil.instagram }}</td>
+                <td>{{ mprofil.email }}</td>
+                <td>{{ mprofil.whatsapp }}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

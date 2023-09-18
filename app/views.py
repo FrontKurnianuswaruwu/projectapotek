@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat,admin
+from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat,admin,mprofil
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.hashers import make_password
@@ -466,3 +466,55 @@ def vadmin(request):
     }    
     return render(request, 'madmin/v-admin-brg.html', context)
 #End Admin  
+
+#Mprofil
+def addprofil(request):
+    return render(request, 'mprofil/add-mprofil-brg.html')
+
+def postaddmprofil(request):
+    nama = request.POST['nama']
+    alamat = request.POST['alamat']
+    gambar = request.FILES['gambar']
+    facebook = request.POST['facebook']
+    instagram = request.POST['instagram']
+    email = request.POST['email']
+    whatsapp = request.POST['whatsapp']
+    
+    first_letter = "P"
+    # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_jenis = mprofil.objects.filter(id_apotik__startswith=first_letter)
+        # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_jenis.filter(id_apotik=first_letter + str(number).zfill(3)).exists():
+        number += 1
+    # Setel kode_kelompok dengan format yang sesuai
+    id_apotik = first_letter + str(number).zfill(3)
+    
+    data_mprofil = mprofil(
+        id_apotik = id_apotik,
+        nama = nama,
+        alamat = alamat,
+        gambar = gambar,
+        facebook = facebook,
+        instagram = instagram,
+        email = email,
+        whatsapp = whatsapp
+    )
+    data_mprofil.save()
+    messages.success(request,'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def vmprofil(request):
+    data_mprofil = mprofil.objects.all()
+    context = {
+        'data_mprofil' : data_mprofil
+    }
+    return render(request, 'mprofil/v-mprofil-brg.html',context)
+        
+def upmprofil(request,id_apotik):
+    data_mprofil = mprofil.objects.get(id_apotik=id_apotik)
+    context = {
+        'data_mprofil' : data_mprofil
+    }
+    return render(request, 'mprofil/up-profil-brg.html',context)
+    

@@ -62,4 +62,13 @@ class admin(models.Model):
     telepon = models.CharField(max_length=20)
     password = models.CharField(max_length=100)
 
-     
+class mprofil(models.Model):
+    id_apotik = models.CharField(max_length=4, primary_key=True)
+    nama = models.CharField(max_length=20)
+    alamat = models.CharField(max_length=100)
+    gambar = models.ImageField(upload_to='static/images',null=True)
+    facebook = models.CharField(max_length=100)
+    instagram = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    whatsapp = models.CharField(max_length=100)
+        
