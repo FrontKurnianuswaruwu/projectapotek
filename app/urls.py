@@ -37,7 +37,7 @@ urlpatterns = [
     path('postupmsatuan', postupmsatuan, name='postupmsatuan'),
     path('delmsatuan/<str:kode_satuan>',delmsatuan ,name='delmsatuan'),
     
-    # Satuan Beritingkat
+    # Satuan Bertingkat
     path('addmdafsat', addmdafsat,name="addmdafsat"),
     path('postaddmdafsat', postaddmdafsat, name='postaddmdafsat'),
     path('vmdafsat', vmdafsat, name='vmdafsat'),

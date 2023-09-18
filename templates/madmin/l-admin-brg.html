@@ -4,30 +4,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
+<style>
+    body,
+    html{
+        margin: 0;
+        padding: 0;
+        background-color: #030532;
+    }
 
+    .container{
+        width: 576px;
+        margin: 0 auto;
+        display: grid;
+        justify-content: center;
+        align-content: center; 
+        }
+    h1{
+        margin-bottom: 20px auto;
+        font-size: 18;
+        font-family: 'Poppins', sans-serif;
+        color: #06F6A0;
+    }
+    form{
+        padding: 10px 20px;
+        border: 1px #06F6A0 solid;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'l l'
+                            'i i'
+                            'b b'
+                            'k k';
+    }
+    .login{
+        margin: 10px auto;
+        grid-area: l;
+        font-size: 16;
+        font-family: 'Poppins', sans-serif;
+        color: #06F6A0;
+
+    }
+
+    .input{
+        grid-area: i;
+        display: grid;
+        grid-template-columns: 1fr;
+
+    }
+
+    .input input{
+        padding: 10px 10px;
+        margin: 10px 0;
+        background-color: transparent;
+        font-family: 'Poppins', sans-serif;
+        color: #06F6A0;
+        border-width:0 0 1px 0;
+        border-color: #06F6A0;  
+    }
+    
+
+    .btn{
+        grid-area: b;
+        display: grid;
+        grid-template-columns: 1fr;
+
+    }
+    .submit{
+        padding: 4px;
+        margin-top: 10px;
+        border: none;
+        background: #06F6A0;
+        color: #030532;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+    .fpassword{
+        border: none;
+        margin: 20px 0;
+        padding: 0;
+        background: transparent;
+        color: red;
+        grid-area: k;
+
+    }
+
+    @media screen  and (min-width: 576px) {
+        form{
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'l l'
+                            'i i'
+                            'b k';
+        
+    }
+    .fpassword{
+        border: none;
+        background: transparent;
+        margin-left: 20px;
+        margin-top: 20px;
+        justify-items: center;
+        color: red;
+        grid-area: k;
+        
+    }
+    .container{
+        width: 600px;
+        margin: 100px auto;
+        display: grid;
+        justify-content: center;
+        align-content: center; 
+        }
+    
+}
+    
+</style>
 <body>
     {% if messages %}
     {% for message in messages %}
     <p>{{ message }}</p>
     {% endfor%}
     {% endif %}
-    <form action="{% url 'postllogin' %}" method="POST">
-        {% csrf_token %}
-        <h1>ADMIN</h1>
-        <p>Email :</p>
-        <input type="email" name="email" id="email" maxlength="100" required upper>
-        <p>Password :</p>
-        <input type="password" name="password" id="password" maxlength="20" required>
-        <p>Password 2 :</p>
-        <input type="password" name="password2" id="password2" maxlength="20" required>
-        <br>
-        <br>
-        <button type="submit">SUBMIT</button>
-        <a href="{% url 'vmdafsat' %}">Kembali</a>
-
-    </form>
+    <div class="container">
+            <h1>Welcome To Apotik</h1>
+                <form action="{% url 'postllogin' %}" method="POST">
+                    {% csrf_token %}
+                    <h2 class="login">Login</h2>
+                    <div class="input">
+                        <input class="email" type="email" name="email" id="email" maxlength="100" 
+                        placeholder="Masukkan Email" required upper>
+                        <input class="password" type="password" name="password" id="password" 
+                        placeholder="Masukkan Password" maxlength="20" required>
+                        <input class="password2" type="password" name="password2" id="password2" 
+                        placeholder="Ulangi Password" maxlength="20" required>
+                    </div>
+                    <div class="btn">
+                        <button class="submit" type="submit">SUBMIT</button>    
+                    </div>
+                    <a href=""><button class="fpassword">
+                        Lupa Password?
+                    </button></a>
+                   
+                </form>
+        </div>
+    </div> 
 </body>
 
 </html>
