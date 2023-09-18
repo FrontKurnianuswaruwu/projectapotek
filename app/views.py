@@ -366,6 +366,14 @@ def delmdafsat(request, kode_daftar_satuan):
 #End Table Satuan Bertingkat
 
 #Data Barang
+def addmbarang(request):
+    data_mjenis = mjenis.objects.all()
+    data_mdafsat = mdafsat.objects.all()
+    context = {
+        'data_mjenis' : data_mjenis,
+        'data_mdafsat' : data_mdafsat
+    }
+    return render(request, 'mbarang/add-mbarang-brg.html',context)
 
 #Admin
 def addadmin(request):
@@ -405,6 +413,7 @@ def postaddadmin(request):
             data_admin.save()
             messages.success(request, 'BERHASIL REGISTER')
             return redirect('login')
+        
 def login(request):
     return render(request, 'madmin/l-admin-brg.html')
 
@@ -426,6 +435,34 @@ def postllogin(request):
     else:
         messages.error(request,'ADMIN TIDAK DITEMUKAN')
     return redirect(request.META.get('HTTP_REFERER', '/'))            
+
+def update(request, id_admin):
+    data_admin = admin.objects.get(id_admin=id_admin)
+    context = {
+        'data_admin' : data_admin
+    }
+    return render(request, 'madmin/up-admin-brg.html', context)
     
+def postupadmin(request):
+    id_admin = request.POST['id_admin']
+    username = request.POST['username']
+    email = request.POST['email']
+    telepon = request.POST['telepon']
     
+    data_admin = admin.objects.get(id_admin=id_admin)
     
+    data_admin.id_admin = id_admin
+    data_admin.username = username
+    data_admin.email = email
+    data_admin.telepon = telepon
+    data_admin.save()
+    messages.success(request,'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def vadmin(request):
+    data_admin = admin.objects.all()
+    context = {
+        'data_admin' : data_admin
+    }    
+    return render(request, 'madmin/v-admin-brg.html', context)
+#End Admin  
