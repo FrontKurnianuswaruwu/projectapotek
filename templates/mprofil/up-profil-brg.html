@@ -13,7 +13,7 @@
     <p>{{ message }}</p>
     {% endfor%}
     {% endif %}
-    <form action="{% url 'postupmsatuan' %}" method="POST">
+    <form action="{% url 'postupmsatuan' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h1>UPDATE</h1>
         <p>ID Apotik : </p>
@@ -24,14 +24,25 @@
         <input type="text" name="alamat" id="alamat" value="{{ data_mprofil.alamat }}"  required>
         <br>
         <p>Gambar :</p>
-        <img src="{{ data_mprofil.gambar }}" alt="Gambar Profil" id="preview-gambar">
-        <input type="file" name="gambar" id="gambar-input" accept="image/*" onchange="previewGambar(event)" required>
-
+        {% if data_mprofil.gambar %}
+        <img style="height: 100px" src="{{ data_mprofil.gambar.url }}" alt="Gambar Profil" id="preview-gambar">
+        {% else %}
+        <img style="height: 100px" src="" alt="Gambar Profil" id="preview-gambar">
+        {% endif %}
+        <input type="file" name="gambar" id="gambar-input" accept="image/*" onchange="previewGambar(event)">
         <p>Facebook :</p>
         <input type="text" name="facebook" id="facebook" value="{{ data_mprofil.facebook }}"  required>
+
+        <p>Instagram :</p>
+        <input type="text" name="instagram" id="instagram" value="{{ data_mprofil.instagram }}"  required>
+
+        <p>Email :</p>
+        <input type="email" name="email" id="email" value="{{ data_mprofil.email }}"  required>
+        <p>Whatsapp :</p>
+        <input type="number" name="whatsapp" id="whatsapp" value="{{ data_mprofil.whatsapp }}"  required>
         <br>
         <button type="submit">SUBMIT</button>
-        <a href="{% url 'vmsatuan' %}">Kembali</a>
+        <a href="{% url 'vmprofil' %}">Kembali</a>
 
     </form>
     <script>

@@ -518,3 +518,30 @@ def upmprofil(request,id_apotik):
     }
     return render(request, 'mprofil/up-profil-brg.html',context)
     
+def postupmsatuan(request):
+    id_apotik = request.POST['id_apotik']
+    nama = request.POST['nama']
+    alamat = request.POST['alamat']
+    gambar = request.FILES['gambar'] if 'gambar' in request.FILES else None  # Menggunakan None jika gambar tidak ada
+    fecebook = request.POST['facebook']
+    instagram = request.POST['instagram']
+    email = request.POST['email']
+    whatsapp = request.POST['whatsapp']
+    
+    data_mprofil = mprofil.objects.get(id_apotik=id_apotik)
+    
+    data_mprofil.id_apotik = id_apotik
+    data_mprofil.nama = nama
+    data_mprofil.alamat = alamat
+    if gambar:  # Hanya mengatur gambar jika ada
+        data_mprofil.gambar = gambar
+    data_mprofil.facebook = fecebook
+    data_mprofil.instagram = instagram
+    data_mprofil.email = email
+    data_mprofil.whatsapp = whatsapp
+    
+    data_mprofil.save()
+    messages.success(request,'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+    
