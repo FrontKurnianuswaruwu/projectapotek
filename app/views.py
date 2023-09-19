@@ -518,7 +518,7 @@ def upmprofil(request,id_apotik):
     }
     return render(request, 'mprofil/up-profil-brg.html',context)
     
-def postupmsatuan(request):
+def postupmprofil(request):
     id_apotik = request.POST['id_apotik']
     nama = request.POST['nama']
     alamat = request.POST['alamat']
