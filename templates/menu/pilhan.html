@@ -1,0 +1,75 @@
+<select name="Obat" id="selectOption" data-url="obat">
+    <option value="" disabled selected>OBAT</option>
+    <option value="url1">Kelompok Obat</option>
+    <option value="url2">Data Obat</option>
+    <option value="url3">Data Obat Satuan</option>
+    <option value="url4">Jenis Obat</option>
+</select>
+<select name="Satuan" id="selectOption1" data-url="satuan">
+    <option value="" disabled selected>SATUAN</option>
+    <option value="url5">data Satuan</option>
+    <option value="url6">Satuan Bertingkat</option>
+</select>
+<select name="Supplier" id="selectOption2" data-url="supplier">
+    <option value="" disabled selected>SUPPLIER</option>
+    <option value="">Supplier</option>
+    <option value="">Obat Supplier</option>
+</select>
+<select name="Pembelian" id="selectOption3" data-url="pembelian">
+    <option value="" disabled selected>PEMBELIAN</option>
+    <option value="">Pembelian Faktur</option>
+    <option value="">Pembelian detail</option>
+</select>
+<select name="Range" id="selectOption4" data-url="range">
+    <option value="" disabled selected>RANGE HARGA</option>
+    <option value="">Range Harga</option>
+</select>
+<script>
+    // Mendapatkan semua elemen <select> dengan atribut data-url
+    var selectElements = document.querySelectorAll('select[data-url]');
+
+    // Objek yang memetakan data-url ke URL yang sesuai
+    var urlMap = {
+        'obat': {
+            'url1': 'addmdafsat',
+            'url2': 'addmbarang',
+            'url3': 'vmsatuan',
+            'url4': 'vmjenis',
+        },
+        'satuan': {
+            'url5': 'vmsatuan',
+            'url6': 'vmdafsat',
+        },
+        'supplier': {
+
+        },
+        'pembelian': {
+
+        },
+
+        'range': {
+
+        },
+    };
+
+    // Menambahkan event listener untuk setiap elemen <select>
+    selectElements.forEach(function (select) {
+        select.addEventListener('change', function () {
+            // Mendapatkan nilai yang dipilih
+            var selectedValue = select.value;
+
+            // Mendapatkan data-url dari elemen <select>
+            var dataUrl = select.getAttribute('data-url');
+
+            // Mengarahkan pengguna ke URL sesuai dengan data-url dan nilai yang dipilih
+            var url = urlMap[dataUrl][selectedValue];
+
+            if (url) {
+                window.location.href = url;
+            } else {
+                // Tambahkan penanganan kesalahan jika diperlukan
+                console.error('URL tidak ditemukan untuk data-url: ' + dataUrl + ' dan nilai yang dipilih: ' + selectedValue);
+            }
+        });
+    });
+</script>
