@@ -19,29 +19,12 @@
    
 
     <div class="container">
-       <select name="Obat" id="">Obat
-            <option value="">Kelompok Obat</option>
-            <option value="">Data Obat</option>
-            <option value="">Data Obat Satuan</option>
-            <option value="">jenis Obat</option>
-       </select>
-       <select name="Satuan" id="">Satuan
-            <option value="">data Satuan</option>
-            <option value="">Satuan Bertingkat</option>
-        </select>
-        <button>Range Harga</button>
-        <select name="Supplier" id="">Supplier
-            <option value="">Supplier</option>
-            <option value="">Obat Supplier</option>
-        </select>
-        <select name="Pembelian" id="">Pembelian
-            <option value="" >Pembelian Faktur</option>
-            <option value="">Pembelian detail</option>
-        </select>
+        {% include "menu/pilhan.html" %}
+    </div>
 
 
        <a href="{% url 'addmdafsat' %}">TAMBAH</a>
-    </div>
+  
     <table>
         <thead>
             <tr>
