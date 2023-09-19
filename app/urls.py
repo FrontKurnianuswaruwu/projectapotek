@@ -54,8 +54,10 @@ urlpatterns = [
     path('update/<str:id_admin>', update, name='update'),
     path('postupadmin', postupadmin, name='postupadmin'),
     
+    #Barang
     path('addmbarang', addmbarang, name='addmbarang' ),
     
+    #Profil
     path('addprofil', addprofil,name='addprofil'),
     path('postaddmprofil', postaddmprofil,name='postaddmprofil'),
     path('vmprofil', vmprofil, name='vmprofil'),
