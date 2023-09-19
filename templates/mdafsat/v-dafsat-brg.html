@@ -4,60 +4,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">    
     <title>Document</title>
 </head>
 <style>
+    * {
+    margin: 0;
+    padding: 0;
+}
+    .container{
+        width: 100%;
+        margin: 20px auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "pn pn"
+                             "nav nav"
+                             "t add"
+                             "tbl tbl";
+    }
+
+    .prof-notif{
+        grid-area: pn;
+        display: flex;
+        justify-content: end;
+    }
+
+    .prof-notif img{
+        width: 20px;
+        margin-right: 20px;
+    }
+
+    .nav{
+        grid-area: nav;
+        margin-top: 20px auto;
+        text-align: center;
+        margin-left: 20px;
+    }
+
+    .title{
+        grid-area: t;
+        color: #172DF6;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        margin-top: 30px;
+        margin-left: 20px;
+        border: #172DF6 1px solid;
+        text-align: center;
+        width: 30%;
+        padding: 5px;
+    }
+
+    .add{
+        grid-area: add;
+        margin-left: 220px;
+        margin-top: 40px;
+        justify-content: end;
+        text-decoration: none;
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        background-color: hsl(220, 93%, 53%);
+        text-align: center;
+        color: #FFFFFF;
+        width: 100px;
+        height: 20px;
+        
+    }
+
+    .add img{
+        width: 12px;
+        padding: auto;
+        justify-items: center;
+    }
+
+    table{
+        align-items: center;
+        margin: 20px 10px;
+        grid-area: tbl;
+        background-color: #172DF6;    
+    }
+    thead{
+        background-color: #06F0A2;
+        margin: 0;
+        padding: 0;
+    }
+    tr{
+       width: 100px;
+       margin: 0%;  
+    }
+    th{
+        color: #FFFFFF;
+        font-size: 10px;
+        font-family: 'Poppins', sans-serif;
+    }
+    tbody{
+        background-color: #FFFFFF;
+    }
+
+    td{
+        color: #030532;
+        text-align: center;
+        font-size: 10px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .td-btn{
+        background-color: #030532;
+    }
+
+    .btn{
+        background-color: transparent;
+        border: none;
+    }
+    .btn img{
+        width: 20px;
+        margin: 5px;
+    }
+
 
 </style>
 
 <body>
-    {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor%}
-    {% endif %}
-   
-
     <div class="container">
-        {% include "menu/pilhan.html" %}
+        <div class="prof-notif">
+            <img src="/static/images/🦆 icon _notification_.svg" alt="">
+            <img src="/static/images/🦆 icon _profile circle_.svg" alt="">
+        </div>
+        <div class="nav">
+            {% include "menu/pilhan.html" %}
+        </div>
+        <h1 class="title">Daftar satuan</h1>
+        <a class="add" href="{% url 'addmdafsat' %}">Tambah <img src="/static/images/🦆 icon _add circle_.svg" alt=""></a>
+      
+        <table>
+            <thead>
+                <tr>
+                    <th>Kode Daftar Satuan</th>
+                    <th>Satuan Terbesar</th>
+                    <th>Satuan Sedang </th>
+                    <th>Satatus Terkecil</th>
+                    <th>Jumsat Terbesar</th>
+                    <th>Jumsat Sedang</th>
+                    <th>Jumsat terkecil</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mdafsat in data_mdafsat %}
+                <tr>
+                    <td>{{ mdafsat.kode_daftar_satuan}}</td>
+                    <td>{{ mdafsat.satuan_terbesar }}</td>
+                    <td>{{ mdafsat.satuan_sedang }}</td>
+                    <td>{{ mdafsat.satuan_terkecil }}</td>
+                    <td>{{ mdafsat.jumsat_terbesar }}</td>
+                    <td>{{ mdafsat.jumsat_sedang }}</td>
+                    <td>{{ mdafsat.jumsat_terkecil }}</td>
+                    <td class="td-btn">
+                        <a href="{% url 'upmdafsat' mdafsat.kode_daftar_satuan  %}"><button class="btn">
+                            <img src="/static/images/🦆 icon _edit_.svg" alt=""></button></a>
+                        <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ mdafsat.kode_daftar_satuan }}')"
+                            href="{% url 'delmdafsat' mdafsat.kode_daftar_satuan %}"><button class="btn">
+                                <img src="/static/images/🦆 icon _trash_.svg" alt=""></button></a>
+                    </td>
+    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
-
-       <a href="{% url 'addmdafsat' %}">TAMBAH</a>
-  
-    <table>
-        <thead>
-            <tr>
-                <th>Kode Daftar Satuan</th>
-                <th>Satuan Terbesar</th>
-                <th>Satuan Sedang </th>
-                <th>Satatus Terkecil</th>
-                <th>Jumsat Terbesar</th>
-                <th>Jumsat Sedang</th>
-                <th>Jumsat terkecil</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for mdafsat in data_mdafsat %}
-            <tr>
-                <td>{{ mdafsat.kode_daftar_satuan}}</td>
-                <td>{{ mdafsat.satuan_terbesar }}</td>
-                <td>{{ mdafsat.satuan_sedang }}</td>
-                <td>{{ mdafsat.satuan_terkecil }}</td>
-                <td>{{ mdafsat.jumsat_terbesar }}</td>
-                <td>{{ mdafsat.jumsat_sedang }}</td>
-                <td>{{ mdafsat.jumsat_terkecil }}</td>
-                <td>
-                    <a href="{% url 'upmdafsat' mdafsat.kode_daftar_satuan  %}">UPDATE</a>
-                    <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ mdafsat.kode_daftar_satuan }}')"
-                        href="{% url 'delmdafsat' mdafsat.kode_daftar_satuan %}">DELETE</a>
-                </td>
-
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    
 </body>
 
 </html>
