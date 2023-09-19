@@ -49,6 +49,7 @@ urlpatterns = [
     path('addadmin', addadmin, name='addadmin'),
     path('postaddadmin', postaddadmin, name='postaddadmin'),
     path('login', login, name='login'),
+    path('logout', logout, name='logout'),
     path('postllogin', postllogin, name='postllogin'),
     path('vadmin', vadmin, name='vadmin'),
     path('update/<str:id_admin>', update, name='update'),

@@ -9,11 +9,7 @@
 
 <body>
     <h1>KELOMPOK BARANG</h1>
-    {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor%}
-    {% endif %}
+    {% include "menu/messages.html" %}
     <a href="{% url 'addadmin' %}">TAMBAH</a>
 
     <table>

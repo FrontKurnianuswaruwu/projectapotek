@@ -8,11 +8,7 @@
 </head>
 
 <body>
-    {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor%}
-    {% endif %}
+    {% include "menu/messages.html" %}
     <form action="{% url 'postupadmin' %}" method="POST">
         {% csrf_token %}
         <h1>UPDATE</h1>

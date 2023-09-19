@@ -11,36 +11,39 @@
 </head>
 <style>
     body,
-    html{
+    html {
         margin: 0;
         padding: 0;
         background-color: #030532;
     }
 
-    .container{
+    .container {
         width: 576px;
         margin: 0 auto;
         display: grid;
         justify-content: center;
-        align-content: center; 
-        }
-    h1{
+        align-content: center;
+    }
+
+    h1 {
         margin-bottom: 20px auto;
         font-size: 18;
         font-family: 'Poppins', sans-serif;
         color: #06F6A0;
     }
-    form{
+
+    form {
         padding: 10px 20px;
         border: 1px #06F6A0 solid;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas: 'l l'
-                            'i i'
-                            'b b'
-                            'k k';
+            'i i'
+            'b b'
+            'k k';
     }
-    .login{
+
+    .login {
         margin: 10px auto;
         grid-area: l;
         font-size: 16;
@@ -49,31 +52,32 @@
 
     }
 
-    .input{
+    .input {
         grid-area: i;
         display: grid;
         grid-template-columns: 1fr;
 
     }
 
-    .input input{
+    .input input {
         padding: 10px 10px;
         margin: 10px 0;
         background-color: transparent;
         font-family: 'Poppins', sans-serif;
         color: #06F6A0;
-        border-width:0 0 1px 0;
-        border-color: #06F6A0;  
+        border-width: 0 0 1px 0;
+        border-color: #06F6A0;
     }
-    
 
-    .btn{
+
+    .btn {
         grid-area: b;
         display: grid;
         grid-template-columns: 1fr;
 
     }
-    .submit{
+
+    .submit {
         padding: 4px;
         margin-top: 10px;
         border: none;
@@ -84,7 +88,8 @@
         cursor: pointer;
         border-radius: 8px;
     }
-    .fpassword{
+
+    .fpassword {
         border: none;
         margin: 20px 0;
         padding: 0;
@@ -94,65 +99,63 @@
 
     }
 
-    @media screen  and (min-width: 576px) {
-        form{
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: 'l l'
-                            'i i'
-                            'b k';
-        
-    }
-    .fpassword{
-        border: none;
-        background: transparent;
-        margin-left: 20px;
-        margin-top: 20px;
-        justify-items: center;
-        color: red;
-        grid-area: k;
-        
-    }
-    .container{
-        width: 600px;
-        margin: 100px auto;
-        display: grid;
-        justify-content: center;
-        align-content: center; 
+    @media screen and (min-width: 576px) {
+        form {
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 'l l'
+                'i i'
+                'b k';
+
         }
-    
-}
-    
+
+        .fpassword {
+            border: none;
+            background: transparent;
+            margin-left: 20px;
+            margin-top: 20px;
+            justify-items: center;
+            color: red;
+            grid-area: k;
+
+        }
+
+        .container {
+            width: 600px;
+            margin: 100px auto;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+        }
+
+    }
 </style>
+
 <body>
-    {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor%}
-    {% endif %}
+    {% include "menu/messages.html" %}
 
     <div class="container">
-            <h1>Welcome To Apotik</h1>
-                <form action="{% url 'postllogin' %}" method="POST">
-                    {% csrf_token %}
-                    <h2 class="login">Login</h2>
-                    <div class="input">
-                        <input class="email" type="email" name="email" id="email" maxlength="100" 
-                        placeholder="Masukkan Email" required upper>
-                        <input class="password" type="password" name="password" id="password" 
-                        placeholder="Masukkan Password" maxlength="20" required>
-                        <input class="password2" type="password" name="password2" id="password2" 
-                        placeholder="Ulangi Password" maxlength="20" required>
-                    </div>
-                    <div class="btn">
-                        <button class="submit" type="submit">SUBMIT</button>    
-                    </div>
-                    <a href=""><button class="fpassword">
-                        Lupa Password?
-                    </button></a>
-                   
-                </form>
-        </div>
-    </div> 
+        <h1>Welcome To Apotik</h1>
+        <form action="{% url 'postllogin' %}" method="POST">
+            {% csrf_token %}
+            <h2 class="login">Login</h2>
+            <div class="input">
+                <input class="email" type="email" name="email" id="email" maxlength="100" placeholder="Masukkan Email"
+                    required upper>
+                <input class="password" type="password" name="password" id="password" placeholder="Masukkan Password"
+                    maxlength="20" required>
+                <input class="password2" type="password" name="password2" id="password2" placeholder="Ulangi Password"
+                    maxlength="20" required>
+            </div>
+            <div class="btn">
+                <button class="submit" type="submit">SUBMIT</button>
+            </div>
+            <a href=""><button class="fpassword">
+                    Lupa Password?
+                </button></a>
+
+        </form>
+    </div>
+    </div>
 
 </body>
 
