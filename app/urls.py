@@ -58,17 +58,15 @@ urlpatterns = [
     
     #Barang
     path('addmbarang', addmbarang, name='addmbarang' ),
+    path('postaddmbarang', postaddmbarang, name='postaddmbarang'),
     
     #Profil
     path('addprofil', addprofil,name='addprofil'),
     path('postaddmprofil', postaddmprofil,name='postaddmprofil'),
     path('vmprofil', vmprofil, name='vmprofil'),
-
     path('upmprofil/<str:id_apotik>', upmprofil, name='upmprofil'),
     path('postupmsatuan', postupmsatuan, name='postupmsatuan'),
-
     path('upmprofil/<str:id_apotik>', upmprofil, name='upmprofil'),
-
     path('postupmprofil', postupmprofil, name='postupmprofil')
 
 

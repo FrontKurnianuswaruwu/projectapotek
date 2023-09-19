@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat,admin,mprofil
+from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat,admin,mprofil,mbarang
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.hashers import make_password
@@ -409,6 +409,52 @@ def addmbarang(request):
     }
     return render(request, 'mbarang/add-mbarang-brg.html',context)
 
+def postaddmbarang(request):
+    nama_barang_lengkap = request.POST["nama_barang_lengkap"]
+    nama_barang_penjualan = request.POST['nama_barang_penjualan']
+    jenis_barang = request.POST['jenis_barang']
+    satua_terkecil = request.POST['satua_terkecil']
+    barcode_terkecil = request.POST['barcode_terkecil']
+    harga_pl_sebelum_ppn = request.POST['harga_pl_sebelum_ppn']
+    harga_pl_sesudah_ppn = request.POST['harga_pl_sesudah_ppn']
+    harga_pokok_penjualan = request.POST['harga_pokok_penjualan']
+    margin_penjualan = request.POST['margin_penjualan']
+    harga_penjualan_sat_terkecil = request.POST['harga_penjualan_sat_terkecil']
+    kode_dafar_satuan = request.POST['kode_dafar_satuan']
+    status_aktif_barang = request.POST['status_aktif_barang']
+    
+     # Ambil huruf pertama dari nama_kelompok
+    first_letter = nama_barang_penjualan[0].upper()
+    # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_jenis = mbarang.objects.filter(kode_barang__startswith=first_letter)
+    # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_jenis.filter(kode_barang=first_letter + str(number).zfill(3)).exists():
+        number += 1
+    # Setel kode_kelompok dengan format yang sesuai
+    kode_barang = first_letter + str(number).zfill(3)
+    
+    data_mbarang = mbarang(
+        kode_barang = kode_barang ,
+        nama_barang_lengkap = nama_barang_lengkap,
+        nama_barang_penjualan = nama_barang_penjualan,
+        jenis_barang = jenis_barang,
+        satua_terkecil = satua_terkecil,
+        barcode_terkecil = barcode_terkecil,
+        harga_pl_sebelum_ppn = harga_pl_sebelum_ppn,
+        harga_pl_sesudah_ppn = harga_pl_sesudah_ppn,
+        harga_pokok_penjualan = harga_pokok_penjualan,
+        margin_penjualan = margin_penjualan,
+        harga_penjualan_sat_terkecil = harga_penjualan_sat_terkecil,
+        kode_dafar_satuan = kode_dafar_satuan,
+        status_aktif_barang = status_aktif_barang
+    )
+    data_mbarang.save()
+    messages.success(request, 'BERHASIL TAMBAH BARANG')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+    
+    
+
 #Admin
 def addadmin(request):
     return render(request, 'madmin/add-admin-brg.html')
@@ -461,14 +507,14 @@ def postllogin(request):
     password = request.POST['password']
     password2 = request.POST['password2']
     
-    if admin.objects.filter(email=email).exists():
+    if admin.objects.filter(email=email):
         data_admin = admin.objects.get(email=email)
         if password == password2:
             request.session['id_admin'] = data_admin.id_admin
             request.session['username'] = data_admin.username
             request.session.save()
             messages.success(request,'BERHASIL LOGIN')
-            return redirect(request.META.get('HTTP_REFERER', '/'))
+            return redirect('vmprofil')
         else :
             messages.error(request, 'PASSWORD SALAH')
     else:
