@@ -62,9 +62,9 @@ urlpatterns = [
     path('vmprofil', vmprofil, name='vmprofil'),
 
     path('upmprofil/<str:id_apotik>', upmprofil, name='upmprofil'),
-    path('postupmsatuan', postupmsatuan, name='postupmsatuan')
+    path('postupmsatuan', postupmsatuan, name='postupmsatuan'),
 
-    path('upmprofil/<str:id_apotik>', upmprofil, name='upmprofil')
+    path('upmprofil/<str:id_apotik>', upmprofil, name='upmprofil'),
 
     path('addmbarang', addmbarang, name='addmbarang' )
 
