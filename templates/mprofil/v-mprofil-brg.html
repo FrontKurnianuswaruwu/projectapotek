@@ -8,46 +8,39 @@
 </head>
 
 <body>
-    <h1>PROFIL</h1>
-    {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor%}
-    {% endif %}
-    <a href="{% url 'addprofil' %}">TAMBAH</a>
-    <table>
-        <thead>
-            <tr>
-                <th>ID Apotik</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Gambar</th>
-                <th>FECEBOOK</th>
-                <th>INSTAGRAM</th>
-                <th>EMAIL</th>
-                <th>WHATSAPP</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+        <div class="left-section">
+            <img src="/static/images/Rectangle 1.svg" alt="">
             {% for mprofil in data_mprofil %}
-            <tr>
-                <td>{{ mprofil.id_apotik}}</td>
-                <td>{{ mprofil.nama }}</td>
-                <td>{{ mprofil.alamat }}</td>
-                <td><img style="width:100px; height: 100px;" src="{{mprofil.gambar}}" alt=""></td>
-                <td>{{ mprofil.facebook }}</td>
-                <td>{{ mprofil.instagram }}</td>
-                <td>{{ mprofil.email }}</td>
-                <td>{{ mprofil.whatsapp }}</td>
-                <td>
-                    <a href="{% url 'upmprofil' mprofil.id_apotik %}">UPDATE</a>
-                </td>
+            <h1>{{ mprofil.nama }}</h1>
+            <img src="/static/images/logo_ukrim 1.png" alt="">
+        </div>
+        <div class="center-section">
+            <img style="width:100px; height: 100px;" src="{{mprofil.gambar}}" alt="">
+            <td>{{ mprofil.alamat }}</td>
+            <a href="https://id-id.facebook.com/">
+                <button><img src="/static/images/facebook_svgrepo.com.png" alt=""></button>
+            </a>
+            <!-- email -->
+            <a href="stefanusdaeli2003@gmail.com">
+                <button><img src="/static/images/Vector.png" alt=""></button>
+            </a>
+            <!-- instagram -->
+            <a href="https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Faccounts%2Fedit%2F%">
+                <button><img src="/static/images/instagram_svgrepo.com.png" alt=""></button>
+            </a>
+            <a href="https://web.whatsapp.com/">
+                <button><img src="/static/images/whatsapp_svgrepo.com.png" alt=""></button>
+            </a>
+        </div>
+        <div class="right-section">
+            <img src="/static/images/🦆 icon _notification_.svg" alt="">
+            <img src="/static/images/Group.svg" alt="">
+        </div>
+        {% endfor %}
+    </div>
 
-                
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    
 </body>
 
 </html>
