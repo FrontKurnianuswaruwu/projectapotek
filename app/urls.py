@@ -49,14 +49,17 @@ urlpatterns = [
     path('addadmin', addadmin, name='addadmin'),
     path('postaddadmin', postaddadmin, name='postaddadmin'),
     path('login', login, name='login'),
+    path('logout', logout, name='logout'),
     path('postllogin', postllogin, name='postllogin'),
     path('vadmin', vadmin, name='vadmin'),
     path('update/<str:id_admin>', update, name='update'),
     path('postupadmin', postupadmin, name='postupadmin'),
 
     
+    #Barang
     path('addmbarang', addmbarang, name='addmbarang' ),
     
+    #Profil
     path('addprofil', addprofil,name='addprofil'),
     path('postaddmprofil', postaddmprofil,name='postaddmprofil'),
     path('vmprofil', vmprofil, name='vmprofil'),

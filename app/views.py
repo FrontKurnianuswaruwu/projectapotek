@@ -4,24 +4,30 @@ from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat,admin,mprofil
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.hashers import make_password
+from .decorators import login_required
 
 # Create your views here.
+@login_required()
 def index(request):
     context= {
         'name':'front'
     }
     return render(request,'index.html',context)
 
+@login_required()
 def index2(request):
     return render(request,'index2.html')
 
+@login_required()
 def dashboard(request):
     return render(request,'dashboard.html')
 
 #Table Kelompok Barang
+@login_required()
 def tambahmkelompok(request):
     return render(request,'tambah-kelompok-barang.html')
 
+@login_required()
 def tambahkelompokpost(request):
     nama_kelompok = request.POST['nama_kelompok']
     
@@ -50,6 +56,7 @@ def tambahkelompokpost(request):
         messages.success(request, 'BERHASIL TAMBAH KELOMPOK')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def mastermkelompok(request):
     data_mkelompok = Kelompok.objects.all()
     context = {
@@ -57,6 +64,7 @@ def mastermkelompok(request):
     }
     return render (request,'master-mkelompok.html',context)
 
+@login_required()
 def updatmkelompok(request, kode_kelompok):
     data_mkelompok = Kelompok.objects.get(kode_kelompok=kode_kelompok)
     context = {
@@ -64,6 +72,7 @@ def updatmkelompok(request, kode_kelompok):
     }
     return render(request, 'update-mkelompok.html', context)    
 
+@login_required()
 def postupdatemkelompok(request):
     # ambil data dari POST
     kode_kelompok = request.POST['kode_kelompok']
@@ -81,6 +90,7 @@ def postupdatemkelompok(request):
     messages.success(request, 'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def deletemkelompok(request, kode_kelompok):
     Kelompok.objects.get(kode_kelompok=kode_kelompok).delete()
     messages.success(request, 'BERHASIL HAPUS')
@@ -88,9 +98,11 @@ def deletemkelompok(request, kode_kelompok):
 #End Table Kelompok Barang
 
 #Table Perusahaan Apotik
+@login_required()
 def add(request):
     return render(request,'mkelompok/add-kel-brg')
 
+@login_required()
 def postadd(request):
     nama_apotik = request.POST['nama_apotik']
     alamat_apotik = request.POST['alamat_apotik']
@@ -109,6 +121,7 @@ def postadd(request):
     messages.success(request, 'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def v(request):
     data_mapotik = mapotik.objects.all()
     context = {
@@ -116,6 +129,7 @@ def v(request):
     }
     return render(request,'mkelompok/v-kel-brg.html', context)
 
+@login_required()
 def up(request, id):
     data_mapotik = mapotik.objects.get(id = id)
     context = {
@@ -123,6 +137,7 @@ def up(request, id):
     }
     return render(request, 'mkelompok/up-kel-brg.html', context)
 
+@login_required()
 def postup(request):
     id = request.POST['id']
     nama_apotik = request.POST['nama_apotik']
@@ -145,6 +160,7 @@ def postup(request):
 #End Table Perusahaan Apotik
 
 #Table Jenis Barang
+@login_required()
 def addmjenis(request):
     kode_mkelompok = Kelompok.objects.filter()
     context = {
@@ -152,6 +168,7 @@ def addmjenis(request):
     }
     return render(request, 'mjenis/add-kel-brg.html', context)
 
+@login_required()
 def postaddmjenis(request):
     nama_jenis = request.POST['nama_jenis']
     kode_kelompok = request.POST['kode_kelompok']
@@ -181,13 +198,15 @@ def postaddmjenis(request):
     messages.success(request, 'BERHASIL TAMBAH JENIS BARANG')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def vmjenis(request):
     data_mjenis = mjenis.objects.all()
     context = {
         'data_mjenis' : data_mjenis
     }
     return render(request, 'mjenis/v-jenis-brg.html', context)
-    
+
+@login_required()   
 def upmjenis(request, kode_jenis):
     data_mjenis = mjenis.objects.get(kode_jenis = kode_jenis)
     kode_mkelompok = Kelompok.objects.filter()
@@ -197,6 +216,7 @@ def upmjenis(request, kode_jenis):
     }
     return render(request, 'mjenis/up-jenis-brg.html',context)
 
+@login_required()
 def postupmjenis(request):
     kode_jenis = request.POST['kode_jenis']
     nama_jenis = request.POST['nama_jenis']
@@ -215,6 +235,7 @@ def postupmjenis(request):
     messages.success(request, 'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def delmjenis(request, kode_jenis):
     mjenis.objects.get(kode_jenis=kode_jenis).delete()
     messages.success(request, 'BERHASIL HAPUS DATA')
@@ -222,9 +243,11 @@ def delmjenis(request, kode_jenis):
 #End Table Jenis Barang
 
 #Table Data Satuan
+@login_required()
 def addmsatuan(request):
     return render(request,'msatuan/add-satuan-brg.html')
 
+@login_required()
 def postaddmsatuan(request):
     nama_satuan = request.POST['nama_satuan']
     nama_singkat = request.POST['nama_singkat']
@@ -251,20 +274,23 @@ def postaddmsatuan(request):
     messages.success(request, 'BERHASIL TAMBAH JENIS BARANG')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def vmsatuan(request):
     data_msatuan = msatuan.objects.all()
     context = {
         'data_msatuan' : data_msatuan
     }    
     return render(request, 'msatuan/v-satuan-brg.html',context)
-    
+   
+@login_required() 
 def upmsatuan(request, kode_satuan):
     data_msatuan = msatuan.objects.get(kode_satuan=kode_satuan)
     context = {
         'data_msatuan' : data_msatuan
     }    
     return render(request, 'msatuan/up-satuan-brg.html',context)
-    
+
+@login_required()  
 def postupmsatuan(request):
     kode_satuan = request.POST['kode_satuan']
     nama_satuan = request.POST['nama_satuan']
@@ -281,6 +307,7 @@ def postupmsatuan(request):
     messages.success(request, 'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def delmsatuan(request , kode_satuan):
     msatuan.objects.get(kode_satuan=kode_satuan).delete()
     messages.success(request, 'BERHASIL HAPUS DATA')
@@ -288,9 +315,11 @@ def delmsatuan(request , kode_satuan):
 #End Table Data Satuan
 
 #Table Satuan Bertingkat
+@login_required()
 def addmdafsat(request):
     return render(request, 'mdafsat/add-mdafsat-brg.html') 
 
+@login_required()
 def postaddmdafsat(request):
     satuan_terbesar = request.POST['satuan_terbesar']
     satuan_sedang = request.POST['satuan_sedang']
@@ -323,6 +352,7 @@ def postaddmdafsat(request):
     messages.success(request, 'BERHASIL TAMBAH JENIS BARANG')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def vmdafsat(request):
     data_mdafsat = mdafsat.objects.all()
     context = {
@@ -330,6 +360,7 @@ def vmdafsat(request):
     }
     return render(request, 'mdafsat/v-dafsat-brg.html',context)
 
+@login_required()
 def upmdafsat(request, kode_daftar_satuan) :
     data_mdafsat = mdafsat.objects.get(kode_daftar_satuan = kode_daftar_satuan)
     context = {
@@ -337,6 +368,7 @@ def upmdafsat(request, kode_daftar_satuan) :
     }  
     return render(request, 'mdafsat/up-mdafsat-brg.html',context)
 
+@login_required()
 def postupmdafsat(request):
     kode_daftar_satuan = request.POST['kode_daftar_satuan']
     satuan_terbesar = request.POST['satuan_terbesar']
@@ -359,6 +391,7 @@ def postupmdafsat(request):
     messages.success(request, 'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def delmdafsat(request, kode_daftar_satuan):
     mdafsat.objects.get(kode_daftar_satuan=kode_daftar_satuan).delete()
     messages.success(request, 'BERHASIL HAPUS DATA')
@@ -366,6 +399,7 @@ def delmdafsat(request, kode_daftar_satuan):
 #End Table Satuan Bertingkat
 
 #Data Barang
+@login_required()
 def addmbarang(request):
     data_mjenis = mjenis.objects.all()
     data_mdafsat = mdafsat.objects.all()
@@ -417,6 +451,11 @@ def postaddadmin(request):
 def login(request):
     return render(request, 'madmin/l-admin-brg.html')
 
+def logout(request):
+    # hapus data session
+    request.session.flush()
+    messages.success(request, 'BERHASIL LOGOUT')
+    return redirect('login')
 def postllogin(request):
     email = request.POST['email']
     password = request.POST['password']
@@ -442,7 +481,8 @@ def update(request, id_admin):
         'data_admin' : data_admin
     }
     return render(request, 'madmin/up-admin-brg.html', context)
-    
+
+@login_required()    
 def postupadmin(request):
     id_admin = request.POST['id_admin']
     username = request.POST['username']
@@ -459,6 +499,7 @@ def postupadmin(request):
     messages.success(request,'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def vadmin(request):
     data_admin = admin.objects.all()
     context = {
@@ -468,9 +509,11 @@ def vadmin(request):
 #End Admin  
 
 #Mprofil
+@login_required()
 def addprofil(request):
     return render(request, 'mprofil/add-mprofil-brg.html')
 
+@login_required()
 def postaddmprofil(request):
     nama = request.POST['nama']
     alamat = request.POST['alamat']
@@ -504,20 +547,23 @@ def postaddmprofil(request):
     messages.success(request,'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required()
 def vmprofil(request):
     data_mprofil = mprofil.objects.all()
     context = {
         'data_mprofil' : data_mprofil
     }
     return render(request, 'mprofil/v-mprofil-brg.html',context)
-        
+
+@login_required()    
 def upmprofil(request,id_apotik):
     data_mprofil = mprofil.objects.get(id_apotik=id_apotik)
     context = {
         'data_mprofil' : data_mprofil
     }
     return render(request, 'mprofil/up-profil-brg.html',context)
-    
+   
+@login_required() 
 def postupmprofil(request):
     id_apotik = request.POST['id_apotik']
     nama = request.POST['nama']
