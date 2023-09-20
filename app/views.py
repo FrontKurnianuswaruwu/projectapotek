@@ -452,7 +452,67 @@ def postaddmbarang(request):
     data_mbarang.save()
     messages.success(request, 'BERHASIL TAMBAH BARANG')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+ 
+def vmbarang(request):
+    data_mbarang = mbarang.objects.all()
+    context = {
+        'data_mbarang' : data_mbarang
+    }
+    return render(request, 'mbarang/v-mbarang-brg.html',context)
+
+def upmbarang(request,kode_barang):
+    data_mbarang = mbarang.objects.get(kode_barang=kode_barang)
+    data_mjenis = mjenis.objects.all()
+    data_mdafsat = mdafsat.objects.all()
+    context = {
+        'data_mbarang':data_mbarang,
+        'data_mjenis' : data_mjenis,
+        'data_mdafsat' : data_mdafsat
+    }
+    return render(request, 'mbarang/up-mbarang-brg.html',context)
+
+def postupmbarang(request):
+    kode_barang = request.POST['kode_barang']
+    nama_barang_lengkap = request.POST['nama_barang_lengkap']
+    nama_barang_penjualan = request.POST['nama_barang_penjualan']
+    jenis_barang = request.POST['jenis_barang']
+    satua_terkecil = request.POST['satua_terkecil']
+    barcode_terkecil = request.POST['barcode_terkecil']
+    harga_pl_sebelum_ppn = request.POST['harga_pl_sebelum_ppn']
+    harga_pl_sesudah_ppn = request.POST['harga_pl_sesudah_ppn']
+    harga_pokok_penjualan = request.POST['harga_pokok_penjualan']
+    margin_penjualan = request.POST['margin_penjualan']
+    harga_penjualan_sat_terkecil = request.POST['harga_penjualan_sat_terkecil']
+    tanggal_update_terakhir = request.POST['tanggal_update_terakhir']
+    kode_dafar_satuan = request.POST['kode_dafar_satuan']
+    status_aktif_barang = request.POST['status_aktif_barang']
+    usertime = request.POST['usertime']
     
+    data_mbarang = mbarang.objects.get(kode_barang=kode_barang)
+    data_mbarang.kode_barang = kode_barang
+    data_mbarang.nama_barang_lengkap = nama_barang_lengkap
+    data_mbarang.nama_barang_penjualan = nama_barang_penjualan
+    data_mbarang.jenis_barang = jenis_barang
+    data_mbarang.satua_terkecil = satua_terkecil
+    data_mbarang.barcode_terkecil = barcode_terkecil
+    data_mbarang.harga_pl_sebelum_ppn = harga_pl_sebelum_ppn
+    data_mbarang.harga_pl_sesudah_ppn = harga_pl_sesudah_ppn
+    data_mbarang.harga_pokok_penjualan = harga_pokok_penjualan
+    data_mbarang.margin_penjualan = margin_penjualan
+    data_mbarang.harga_penjualan_sat_terkecil = harga_penjualan_sat_terkecil
+    data_mbarang.tanggal_update_terakhir = tanggal_update_terakhir
+    data_mbarang.kode_dafar_satuan = kode_dafar_satuan
+    data_mbarang.status_aktif_barang = status_aktif_barang
+    data_mbarang.usertime = usertime
+    
+    data_mbarang.save()
+    messages.success(request, 'BERHASIL UPDATE')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def delmbarang (request, kode_barang):
+    mbarang.objects.get(kode_barang=kode_barang).delete()
+    messages.success(request, 'BERHASIL HAPUS DATA')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
     
 
 #Admin

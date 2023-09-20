@@ -52,7 +52,7 @@ class mbarang(models.Model):
     harga_penjualan_sat_terkecil = models.CharField(max_length=100)
     tanggal_update_terakhir =  models.DateTimeField(auto_now=True)
     kode_dafar_satuan = models.CharField(max_length=4)
-    status_aktif_barang = models.CharField(max_length=1,default="y")
+    status_aktif_barang = models.CharField(max_length=1, choices=[('Y', 'Y'), ('T', 'T')], default='Y')
     usertime = models.DateTimeField(auto_now=True)
        
 class admin(models.Model):

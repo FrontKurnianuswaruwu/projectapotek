@@ -59,6 +59,10 @@ urlpatterns = [
     #Barang
     path('addmbarang', addmbarang, name='addmbarang' ),
     path('postaddmbarang', postaddmbarang, name='postaddmbarang'),
+    path('vmbarang', vmbarang, name='vmbarang'),
+    path('upmbarang/<str:kode_barang>', upmbarang, name='upmbarang'),
+    path('postupmbarang', postupmbarang, name='postupmbarang'),
+    path('delmbarang/<str:kode_barang>', delmbarang, name='delmbarang' ),
     
     #Profil
     path('addprofil', addprofil,name='addprofil'),

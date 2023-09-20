@@ -52,15 +52,15 @@
             <option value="{{ md.kode_daftar_satuan }}">{{ md.kode_daftar_satuan }}</option>
             {% endfor %}
         </select>        <p>Satatus Aktif Barang :</p>
-        <select name="status_aktif_barang" id="status_aktif_barang">
-            <option value="" disabled selected>-Satatus Aktif-</option>
-            <option value="">Y</option>
-            <option value="">T</option>
+        <select name="status_aktif_barang" id="status_aktif_barang" >
+            <option disabled selected>-Satatus Aktif-</option>
+            <option>Y</option>
+            <option>T</option>
         </select>
         <br>
         <br>
         <button type="submit">SUBMIT</button>
-        <a href="{% url 'vmdafsat' %}">Kembali</a>
+        <a href="{% url 'vmbarang' %}">Kembali</a>
 
     </form>
 </body>

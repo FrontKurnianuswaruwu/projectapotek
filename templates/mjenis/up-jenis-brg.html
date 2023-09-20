@@ -18,7 +18,7 @@
         <input type="text" name="nama_jenis" id="nama_jenis" value="{{ data_mjenis.nama_jenis }}" required>
         <p>Kode Kelompok</p>
         <select name="kode_kelompok" id="kode_kelompok" required>
-            <option value="" disabled selected>- Pilih Kode Kelompok -</option>
+            <option value="{{ data_mjenis.kode_kelompok}}"  >{{ data_mjenis.kode_kelompok}}</option>
             {% for lk in kode_mkelompok %}
             <option value="{{ lk.kode_kelompok}}">{{ lk.kode_kelompok }}</option>
             {% endfor %}

@@ -146,37 +146,53 @@
         <div class="nav">
             {% include "menu/pilhan.html" %}
         </div>
-        <h1 class="title">Daftar satuan</h1>
-        <a class="add" href="{% url 'addmdafsat' %}">Tambah <img class="imgtambah" src="/static/images/🦆 icon _add circle_.svg" alt=""></a>
+        <h1 class="title">Daftar Barang</h1>
+        <a class="add" href="{% url 'addmbarang' %}">Tambah <img class="imgtambah" src="/static/images/🦆 icon _add circle_.svg" alt=""></a>
       
         <table>
             <thead>
                 <tr>
+                    <th>Kode Barang</th>
+                    <th>Nama Barang Lengkap</th>
+                    <th>Nama Barang Penjualan </th>
+                    <th>Jenis Barang</th>
+                    <th>Satuan Terkecil</th>
+                    <th>Barcode Terkecil</th>
+                    <th>Harga PL Sebelum PN</th>
+                    <th>Harga PL Sesudah PN</th>
+                    <th>Harga Pokok Penjualan</th>
+                    <th>Margin Penjualan</th>
+                    <th>Harga Penjualan Satuan Terkcil</th>
+                    <th>Tanggal Update Terakhir </th>
                     <th>Kode Daftar Satuan</th>
-                    <th>Satuan Terbesar</th>
-                    <th>Satuan Sedang </th>
-                    <th>Satatus Terkecil</th>
-                    <th>Jumsat Terbesar</th>
-                    <th>Jumsat Sedang</th>
-                    <th>Jumsat terkecil</th>
+                    <th>Status Aktif Barang</th>
+                    <th>Usertime</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                {% for mdafsat in data_mdafsat %}
+                {% for mbarang in data_mbarang %}
                 <tr>
-                    <td>{{ mdafsat.kode_daftar_satuan}}</td>
-                    <td>{{ mdafsat.satuan_terbesar }}</td>
-                    <td>{{ mdafsat.satuan_sedang }}</td>
-                    <td>{{ mdafsat.satuan_terkecil }}</td>
-                    <td>{{ mdafsat.jumsat_terbesar }}</td>
-                    <td>{{ mdafsat.jumsat_sedang }}</td>
-                    <td>{{ mdafsat.jumsat_terkecil }}</td>
+                    <td>{{ mbarang.kode_barang}}</td>
+                    <td>{{ mbarang.nama_barang_lengkap }}</td>
+                    <td>{{ mbarang.nama_barang_penjualan }}</td>
+                    <td>{{ mbarang.jenis_barang }}</td>
+                    <td>{{ mbarang.satua_terkecil }}</td>
+                    <td>{{ mbarang.barcode_terkecil }}</td>
+                    <td>{{ mbarang.harga_pl_sebelum_ppn }}</td>
+                    <td>{{ mbarang.harga_pl_sesudah_ppn }}</td>
+                    <td>{{ mbarang.harga_pokok_penjualan }}</td>
+                    <td>{{ mbarang.margin_penjualan }}</td>
+                    <td>{{ mbarang.harga_penjualan_sat_terkecil }}</td>
+                    <td>{{ mbarang.tanggal_update_terakhir }}</td>
+                    <td>{{ mbarang.kode_dafar_satuan }}</td>
+                    <td>{{ mbarang.status_aktif_barang }}</td>
+                    <td>{{ mbarang.usertime }}</td>
                     <td class="td-btn">
-                        <a href="{% url 'upmdafsat' mdafsat.kode_daftar_satuan  %}"><button class="btn">
+                        <a href="{% url 'upmbarang' mbarang.kode_barang %}"><button class="btn">
                             <img src="/static/images/🦆 icon _edit_.svg" alt=""></button></a>
-                        <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ mdafsat.kode_daftar_satuan }}')"
-                            href="{% url 'delmdafsat' mdafsat.kode_daftar_satuan %}"><button class="btn">
+                        <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ mbarang.kode_barang }}')"
+                            href="{% url 'delmbarang' mbarang.kode_barang %}"><button class="btn">
                                 <img src="/static/images/🦆 icon _trash_.svg" alt=""></button></a>
                     </td>
     
