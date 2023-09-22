@@ -71,10 +71,9 @@ urlpatterns = [
     path('upmprofil/<str:id_apotik>', upmprofil, name='upmprofil'),
     path('postupmsatuan', postupmsatuan, name='postupmsatuan'),
     path('upmprofil/<str:id_apotik>', upmprofil, name='upmprofil'),
-    path('postupmprofil', postupmprofil, name='postupmprofil')
-
-
+    path('postupmprofil', postupmprofil, name='postupmprofil'),
     
+    path('addmbrgsat', addmbrgsat, name='addmbrgsat')
 
 
 ]

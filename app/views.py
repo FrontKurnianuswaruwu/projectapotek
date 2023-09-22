@@ -507,7 +507,7 @@ def postupmbarang(request):
     
     data_mbarang.save()
     messages.success(request, 'BERHASIL UPDATE')
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+    return redirect('vmbarang')
 
 def delmbarang (request, kode_barang):
     mbarang.objects.get(kode_barang=kode_barang).delete()
@@ -522,8 +522,6 @@ def addadmin(request):
 def postaddadmin(request):
     if request.method == 'POST':
         username = request.POST['username'].upper()
-        email = request.POST['email']
-        telepon = request.POST['telepon']
         password = request.POST['password'] 
         password_hash = make_password(password)
            # Ambil huruf pertama dari nama_kelompok
@@ -537,22 +535,15 @@ def postaddadmin(request):
         # Setel kode_kelompok dengan format yang sesuai
         id_admin = first_letter + str(number).zfill(3)
         
-        
-        if admin.objects.filter(email=email).exists():
-            messages.error(request, f'EMAIL {email} SUDAH DIGUNAKAN')
-            return redirect(request.META.get('HTTP_REFERER', '/'))
-        
-        else :
-            data_admin = admin(
-                id_admin = id_admin,
-                username = username,
-                email = email,
-                telepon = telepon,
-                password = password_hash
-            )
-            data_admin.save()
-            messages.success(request, 'BERHASIL REGISTER')
-            return redirect('login')
+  
+        data_admin = admin(
+            id_admin = id_admin,
+            username = username,
+            password = password_hash
+        )
+        data_admin.save()
+        messages.success(request, 'BERHASIL REGISTER')
+        return redirect('login')
         
 def login(request):
     return render(request, 'madmin/l-admin-brg.html')
@@ -563,12 +554,12 @@ def logout(request):
     messages.success(request, 'BERHASIL LOGOUT')
     return redirect('login')
 def postllogin(request):
-    email = request.POST['email']
+    username = request.POST['username']
     password = request.POST['password']
     password2 = request.POST['password2']
     
-    if admin.objects.filter(email=email):
-        data_admin = admin.objects.get(email=email)
+    if admin.objects.filter(username=username):
+        data_admin = admin.objects.get(username=username)
         if password == password2:
             request.session['id_admin'] = data_admin.id_admin
             request.session['username'] = data_admin.username
@@ -696,4 +687,10 @@ def postupmprofil(request):
     messages.success(request,'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+def addmbrgsat(request):
+    data_mbarang = mbarang.objects.all()
+    context = {
+        'data_mbarang' : data_mbarang
+    }
+    return render(request, 'mbrgsat/add-mbrgsat-brg.html', context)
     

@@ -58,8 +58,6 @@ class mbarang(models.Model):
 class admin(models.Model):
     id_admin = models.CharField(max_length=4, primary_key=True)
     username = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100, unique=True)
-    telepon = models.CharField(max_length=20)
     password = models.CharField(max_length=100)
 
 class mprofil(models.Model):
@@ -71,4 +69,30 @@ class mprofil(models.Model):
     instagram = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     whatsapp = models.CharField(max_length=100)
-        
+
+class mbrgsat(models.Model):
+    kode_barang = models.CharField(max_length=4)
+    kode_satuan = models.CharField(max_length=4, primary_key=True)
+    harga_pl_sebelum_ppn = models.CharField(max_length=100)
+    harga_pl_sesudah_ppn = models.CharField(max_length=100)
+    qty_satuan_terkecil = models.CharField(max_length=100)
+    tanggal_update_terakhir = models.DateTimeField(auto_now=True)
+    barcode = models.CharField(max_length=20)
+    usertime = models.DateTimeField(auto_now=True)
+
+class msupplier(models.Model):
+    kode_supplier = models.CharField(max_length=4, primary_key=True)
+    nama_supplier = models.CharField(max_length=50)
+    npwp = models.CharField(max_length=20)
+    status_pkp = models.CharField(max_length=1, choices=[('Y', 'Y'), ('T', 'T')], default='Y')
+    alamat = models.CharField(max_length=100)
+    nomor_telp = models.CharField(max_length=20)
+    kontak_person_cp = models.CharField(max_length=20)
+    kontak_hp_cp = models.CharField(max_length=20)
+    nama_bank = models.CharField(max_length=30)
+    nomor_rekening = models.CharField(max_length=30)
+    periode_kunjungan = models.DateField()
+    periode_pembayaran_kredit = models.DateField()
+    keterangan_supplier = models.CharField(max_length=200)
+    status_aktif_supllier = models.CharField(max_length=1, choices=[('Y', 'Y'), ('T', 'T')], default='Y')
+    usertime = models.DateTimeField(auto_now=True)

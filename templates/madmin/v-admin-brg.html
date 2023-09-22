@@ -17,8 +17,6 @@
             <tr>
                 <th>ID Admin</th>
                 <th>Nama</th>
-                <th>Email </th>
-                <th>Telepon</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -27,8 +25,7 @@
             <tr>
                 <td>{{ madmin.id_admin}}</td>
                 <td>{{ madmin.username }}</td>
-                <td>{{ madmin.email }}</td>
-                <td>{{ madmin.telepon }}</td>              <td>
+                 <td>
                     <a href="{% url 'update' madmin.id_admin  %}">UPDATE</a>
                 </td>
 
