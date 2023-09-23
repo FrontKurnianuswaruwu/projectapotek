@@ -25,7 +25,7 @@ def dashboard(request):
 #Table Kelompok Barang
 @login_required()
 def tambahmkelompok(request):
-    return render(request,'tambah-kelompok-barang.html')
+    return render(request,'mkelompok/tambah-kelompok-barang.html')
 
 @login_required()
 def tambahkelompokpost(request):
@@ -62,7 +62,7 @@ def mastermkelompok(request):
     context = {
         'data_mkelompok' : data_mkelompok
     }
-    return render (request,'master-mkelompok.html',context)
+    return render (request,'mkelompok/master-mkelompok.html',context)
 
 @login_required()
 def updatmkelompok(request, kode_kelompok):
@@ -70,7 +70,7 @@ def updatmkelompok(request, kode_kelompok):
     context = {
         'data_mkelompok': data_mkelompok
     }
-    return render(request, 'update-mkelompok.html', context)    
+    return render(request, 'mkelompok/update-mkelompok.html', context)    
 
 @login_required()
 def postupdatemkelompok(request):
@@ -100,7 +100,7 @@ def deletemkelompok(request, kode_kelompok):
 #Table Perusahaan Apotik
 @login_required()
 def add(request):
-    return render(request,'mkelompok/add-kel-brg')
+    return render(request,'mapotik/add-kel-brg')
 
 @login_required()
 def postadd(request):
@@ -127,7 +127,7 @@ def v(request):
     context = {
         'data_mapotik' : data_mapotik
     }
-    return render(request,'mkelompok/v-kel-brg.html', context)
+    return render(request,'mapotik/v-kel-brg.html', context)
 
 @login_required()
 def up(request, id):
@@ -135,7 +135,7 @@ def up(request, id):
     context = {
         'data_mapotik' : data_mapotik
     }
-    return render(request, 'mkelompok/up-kel-brg.html', context)
+    return render(request, 'mapotik/up-kel-brg.html', context)
 
 @login_required()
 def postup(request):
@@ -408,7 +408,7 @@ def addmbarang(request):
         'data_mdafsat' : data_mdafsat
     }
     return render(request, 'mbarang/add-mbarang-brg.html',context)
-
+@login_required()
 def postaddmbarang(request):
     nama_barang_lengkap = request.POST["nama_barang_lengkap"]
     nama_barang_penjualan = request.POST['nama_barang_penjualan']
@@ -452,14 +452,14 @@ def postaddmbarang(request):
     data_mbarang.save()
     messages.success(request, 'BERHASIL TAMBAH BARANG')
     return redirect(request.META.get('HTTP_REFERER', '/'))
- 
+@login_required()
 def vmbarang(request):
     data_mbarang = mbarang.objects.all()
     context = {
         'data_mbarang' : data_mbarang
     }
     return render(request, 'mbarang/v-mbarang-brg.html',context)
-
+@login_required()
 def upmbarang(request,kode_barang):
     data_mbarang = mbarang.objects.get(kode_barang=kode_barang)
     data_mjenis = mjenis.objects.all()
@@ -470,7 +470,7 @@ def upmbarang(request,kode_barang):
         'data_mdafsat' : data_mdafsat
     }
     return render(request, 'mbarang/up-mbarang-brg.html',context)
-
+@login_required()
 def postupmbarang(request):
     kode_barang = request.POST['kode_barang']
     nama_barang_lengkap = request.POST['nama_barang_lengkap']
@@ -508,12 +508,12 @@ def postupmbarang(request):
     data_mbarang.save()
     messages.success(request, 'BERHASIL UPDATE')
     return redirect('vmbarang')
-
+@login_required()
 def delmbarang (request, kode_barang):
     mbarang.objects.get(kode_barang=kode_barang).delete()
     messages.success(request, 'BERHASIL HAPUS DATA')
     return redirect(request.META.get('HTTP_REFERER', '/'))
-    
+#End Data Barang    
 
 #Admin
 def addadmin(request):
@@ -521,9 +521,8 @@ def addadmin(request):
 
 def postaddadmin(request):
     if request.method == 'POST':
-        username = request.POST['username'].upper()
+        username = request.POST['username']
         password = request.POST['password'] 
-        password_hash = make_password(password)
            # Ambil huruf pertama dari nama_kelompok
         first_letter = "A"
         # Cari semua kelompok yang memiliki huruf awal yang sama
@@ -539,7 +538,7 @@ def postaddadmin(request):
         data_admin = admin(
             id_admin = id_admin,
             username = username,
-            password = password_hash
+            password = password
         )
         data_admin.save()
         messages.success(request, 'BERHASIL REGISTER')
@@ -556,11 +555,11 @@ def logout(request):
 def postllogin(request):
     username = request.POST['username']
     password = request.POST['password']
-    password2 = request.POST['password2']
     
     if admin.objects.filter(username=username):
         data_admin = admin.objects.get(username=username)
-        if password == password2:
+        password2 = data_admin.password
+        if password2 == password:
             request.session['id_admin'] = data_admin.id_admin
             request.session['username'] = data_admin.username
             request.session.save()
@@ -686,6 +685,7 @@ def postupmprofil(request):
     data_mprofil.save()
     messages.success(request,'BERHASIL UPDATE')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+#End Mprofil
 
 def addmbrgsat(request):
     data_mbarang = mbarang.objects.all()

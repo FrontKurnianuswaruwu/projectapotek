@@ -35,21 +35,21 @@
         <p>Barcode Terkecil :</p>
         <input type="text" name="barcode_terkecil" id="barcode_terkecil" value="{{ data_mbarang.barcode_terkecil }}" required>
         <p>Harga PL Sebelum PPN :</p>
-        <input type="text" name="harga_pl_sebelum_ppn" id="harga_pl_sebelum_ppn" value="{{ data_mbarang.harga_pl_sebelum_ppn }}" required>
+        <input type="number" name="harga_pl_sebelum_ppn" id="harga_pl_sebelum_ppn" value="{{ data_mbarang.harga_pl_sebelum_ppn }}" required>
         <br>
         <p>Harga PL Sesudah PPN :</p>
-        <input type="text" name="harga_pl_sesudah_ppn" id="harga_pl_sesudah_ppn" value="{{ data_mbarang.harga_pl_sesudah_ppn }}" required>
+        <input type="number" name="harga_pl_sesudah_ppn" id="harga_pl_sesudah_ppn" value="{{ data_mbarang.harga_pl_sesudah_ppn }}" required>
         <br>
         <p>Harga Pokok Penjualan :</p>
-        <input type="text" name="harga_pokok_penjualan" id="harga_pokok_penjualan" value="{{ data_mbarang.harga_pokok_penjualan }}" required>
+        <input type="number" name="harga_pokok_penjualan" id="harga_pokok_penjualan" value="{{ data_mbarang.harga_pokok_penjualan }}" required>
         <br>
         <p>Margin Penjualan:</p>
-        <input type="text" name="margin_penjualan" id="margin_penjualan" value="{{ data_mbarang.margin_penjualan }}" required>
+        <input type="number" name="margin_penjualan" id="margin_penjualan" value="{{ data_mbarang.margin_penjualan }}" required>
         <br>
         <p>Harga Penjualan Satuan Terkecil :</p>
-        <input type="text" name="harga_penjualan_sat_terkecil" id="harga_penjualan_sat_terkecil" value="{{ data_mbarang.harga_penjualan_sat_terkecil }}" required>
+        <input type="number" name="harga_penjualan_sat_terkecil" id="harga_penjualan_sat_terkecil" value="{{ data_mbarang.harga_penjualan_sat_terkecil }}" required>
         <p>Tanggal Update Terakhir :</p>
-        <input type="text" name="tanggal_update_terakhir" id="tanggal_update_terakhir" value="{{ data_mbarang.tanggal_update_terakhir }}" required>
+        <input type="text" name="tanggal_update_terakhir" id="tanggal_update_terakhir" value="{{ data_mbarang.tanggal_update_terakhir }}" required readonly>
         <p>Kode Daftar Satuan :</p>
         <select name="kode_dafar_satuan" id="kode_dafar_satuan" required>
             <option value="{{ data_mbarang.kode_dafar_satuan }}"  >{{ data_mbarang.kode_dafar_satuan }}</option>

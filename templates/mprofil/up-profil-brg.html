@@ -25,7 +25,7 @@
         {% else %}
         <img style="height: 100px" src="" alt="Gambar Profil" id="preview-gambar">
         {% endif %}
-        <input type="file" name="gambar" id="gambar-input" accept="image/*" onchange="previewGambar(event)">
+        <input type="file" name="gambar" id="gambar-input" accept='.png, .jpg, .jpeg' onchange="previewGambar(event)">
         <p>Facebook :</p>
         <input type="text" name="facebook" id="facebook" value="{{ data_mprofil.facebook }}"  required>
 

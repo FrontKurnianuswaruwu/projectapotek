@@ -11,9 +11,9 @@
     {% include "menu/messages.html" %}
     <form action="{% url 'postupmjenis' %}" method="POST">
         {% csrf_token %}
-        <h1>UPDATE JENIS BARANG</h1>
+        <h1>UPDATE JENIS OBAT</h1>
         <p>Kode Jenis</p>
-        <input type="text" name="kode_jenis" id="kode_jenis" value="{{ data_mjenis.kode_jenis }}">
+        <input type="text" name="kode_jenis" id="kode_jenis" value="{{ data_mjenis.kode_jenis }}" required readonly>
         <p>Nama Jenis :</p>
         <input type="text" name="nama_jenis" id="nama_jenis" value="{{ data_mjenis.nama_jenis }}" required>
         <p>Kode Kelompok</p>
@@ -26,7 +26,7 @@
         <p>Status PPN :</p>
         <input type="text" name="status_ppn" id="status_ppn" value="{{ data_mjenis.status_ppn }}" required>
         <p>Usertime</p>
-        <input type="text" name="usertime" id="usertime" value="{{ data_mjenis.usertime }}">
+        <input type="text" name="usertime" id="usertime" value="{{ data_mjenis.usertime }}" required readonly>
         <br>
         <br>
         <button type="submit">SUBMIT</button>

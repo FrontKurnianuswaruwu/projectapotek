@@ -32,26 +32,27 @@
         </select>          <p>Barcode Terkecil :</p>
         <input type="text" name="barcode_terkecil" id="barcode_terkecil" maxlength="20" required>
         <p>Harga PL Sebelum PPN :</p>
-        <input type="text" name="harga_pl_sebelum_ppn" id="harga_pl_sebelum_ppn" maxlength="100" required>
+        <input type="number" name="harga_pl_sebelum_ppn" id="harga_pl_sebelum_ppn" maxlength="100" required>
         <br>
         <p>Harga PL Sesudah PPN :</p>
-        <input type="text" name="harga_pl_sesudah_ppn" id="harga_pl_sesudah_ppn" maxlength="100" required>
+        <input type="number" name="harga_pl_sesudah_ppn" id="harga_pl_sesudah_ppn" maxlength="100" required>
         <br>
         <p>Harga Pokok Penjualan :</p>
-        <input type="text" name="harga_pokok_penjualan" id="harga_pokok_penjualan" maxlength="100" required>
+        <input type="number" name="harga_pokok_penjualan" id="harga_pokok_penjualan" maxlength="100" required>
         <br>
         <p>Margin Penjualan:</p>
-        <input type="text" name="margin_penjualan" id="margin_penjualan" maxlength="50" required>
+        <input type="number" name="margin_penjualan" id="margin_penjualan" maxlength="50" required>
         <br>
         <p>Harga Penjualan Satuan Terkecil :</p>
-        <input type="text" name="harga_penjualan_sat_terkecil" id="harga_penjualan_sat_terkecil" maxlength="100" required>
+        <input type="number" name="harga_penjualan_sat_terkecil" id="harga_penjualan_sat_terkecil" maxlength="100" required>
         <p>Kode Daftar Satuan :</p>
         <select name="kode_dafar_satuan" id="kode_dafar_satuan" required>
             <option value="" disabled selected>-Kode Daftar Satuan-</option>
             {% for md in data_mdafsat %}
             <option value="{{ md.kode_daftar_satuan }}">{{ md.kode_daftar_satuan }}</option>
             {% endfor %}
-        </select>        <p>Satatus Aktif Barang :</p>
+        </select>        
+        <p>Satatus Aktif Barang :</p>
         <select name="status_aktif_barang" id="status_aktif_barang" >
             <option disabled selected>-Satatus Aktif-</option>
             <option>Y</option>

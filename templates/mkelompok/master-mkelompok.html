@@ -14,6 +14,7 @@
 </head>
 {% include "menu/css.html" %}
 
+
 <body>
     {% include "menu/messages.html" %}
     <div class="container">
@@ -21,36 +22,35 @@
             <img src="/static/images/🦆 icon _notification_.svg" alt="">
             <img src="/static/images/🦆 icon _profile circle_.svg" alt="">
         </div>
-        <div class="nav">
-            {% include "menu/pilhan.html" %}
-        </div>
-    <h1 class="title">KELOMPOK SATUAN</h1>
-    <a class="add" href="{% url 'addmsatuan' %}">Tambah <img class="imgtambah" src="/static/images/🦆 icon _add circle_.svg" alt=""></a>
+    <div class="nav">
+        {% include "menu/pilhan.html" %}
+     </div>
+     <h1 class="title">Kelompok Barang</h1>
+    <a class="add" href="{% url 'tambahmkelompok' %}">Tambah <img class="imgtambah" src="/static/images/🦆 icon _add circle_.svg" alt=""></a>
 
     <table>
         <thead>
             <tr>
-                <th>Kode Satuan</th>
-                <th>Nama Satuan</th>
-                <th>Nama Singkat</th>
-                <th>Usertime</th>
+                <th>Kode Kelompok</th>
+                <th>Nama Kelompok</th>
+                <th>usertime</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            {% for msatuan in data_msatuan %}
+            {% for mkelompok in data_mkelompok %}
             <tr>
-                <td>{{ msatuan.kode_satuan}}</td>
-                <td>{{ msatuan.nama_satuan }}</td>
-                <td>{{ msatuan.nama_singkat }}</td>
-                <td>{{ msatuan.usertime }}</td>
+                <td>{{ mkelompok.kode_kelompok }}</td>
+                <td>{{ mkelompok.nama_kelompok }}</td>
+                <td>{{ mkelompok.usertime }}</td>
                 <td class="td-btn">
-                    <a href="{% url 'upmsatuan' msatuan.kode_satuan %}"><button class="btn">
+                    <a href="{% url 'updatmkelompok' mkelompok.kode_kelompok %}"><button class="btn">
                         <img src="/static/images/🦆 icon _edit_.svg" alt=""></button></a>
-                    <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ msatuan.kode_satuan }}')"
-                        href="{% url 'delmsatuan' msatuan.kode_satuan %}"><button class="btn">
+                    <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ mkelompok.kode_kelompok }}')"
+                        href="{% url 'deletemkelompok' mkelompok.kode_kelompok %}"><button class="btn">
                             <img src="/static/images/🦆 icon _trash_.svg" alt=""></button></a>
                 </td>
+
             </tr>
             {% endfor %}
         </tbody>

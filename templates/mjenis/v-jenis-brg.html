@@ -4,13 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">    
     <title>Document</title>
 </head>
+{% include "menu/css.html" %}
 
 <body>
-    <h1>KELOMPOK BARANG</h1>
     {% include "menu/messages.html" %}
-    <a href="{% url 'addmjenis' %}">TAMBAH</a>
+    <div class="container">
+        <div class="prof-notif">
+            <img src="/static/images/🦆 icon _notification_.svg" alt="">
+            <img src="/static/images/🦆 icon _profile circle_.svg" alt="">
+        </div>
+        <div class="nav">
+            {% include "menu/pilhan.html" %}
+        </div>
+
+    <h1 class="title">Jenis Obat</h1>
+    <a class="add" href="{% url 'addmjenis' %}">Tambah <img class="imgtambah" src="/static/images/🦆 icon _add circle_.svg" alt=""></a>
+
 
     <table>
         <thead>
@@ -20,7 +37,6 @@
                 <th>Kode Kelompok</th>
                 <th>Satatus PPN</th>
                 <th>Usertime</th>
-                <th>Kontak Person</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -32,10 +48,12 @@
                 <td>{{ mjenis.kode_kelompok }}</td>
                 <td>{{ mjenis.status_ppn }}</td>
                 <td>{{ mjenis.usertime }}</td>
-                <td>
-                    <a href="{% url 'upmjenis' mjenis.kode_jenis  %}">UPDATE</a>
-                    <a onclick="return confirm('anda yakin menghapus jenis barang dengan id = {{ mjenis.kode_jenis }}')"
-                        href="{% url 'delmjenis' mjenis.kode_jenis %}">DELETE</a>
+                <td class="td-btn">
+                    <a href="{% url 'upmjenis' mjenis.kode_jenis %}"><button class="btn">
+                        <img src="/static/images/🦆 icon _edit_.svg" alt=""></button></a>
+                    <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ mjenis.kode_jenis }}')"
+                        href="{% url 'delmjenis' mjenis.kode_jenis %}"><button class="btn">
+                            <img src="/static/images/🦆 icon _trash_.svg" alt=""></button></a>
                 </td>
 
             </tr>
