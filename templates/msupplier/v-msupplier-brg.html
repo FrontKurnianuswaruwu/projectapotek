@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">    
+    <title>Document</title>
+</head>
+{% include "menu/css.html" %}
+
+<body>
+    {% include "menu/messages.html" %}
+    <div class="container">
+        <div class="prof-notif">
+            <img src="/static/images/🦆 icon _notification_.svg" alt="">
+            <img src="/static/images/🦆 icon _profile circle_.svg" alt="">
+        </div>
+        <div class="nav">
+            {% include "menu/pilhan.html" %}
+        </div>
+
+    <h1 class="title">SUPPLIER</h1>
+    <a class="add" href="{% url 'addmsupplier' %}">Tambah <img class="imgtambah" src="/static/images/🦆 icon _add circle_.svg" alt=""></a>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Kode Supplier</th>
+                <th>Nama Suppplier</th>
+                <th>NPWP</th>
+                <th>Status PKP</th>
+                <th>Alamat</th>
+                <th>Nomor Telepon</th>
+                <th>Kontak Person Whatsapp</th>
+                <th>Kontak HP</th>
+                <th>Nama Bank</th>
+                <th>Nomor Rekening</th>
+                <th>Periode Kunjungan</th>
+                <th>Periode Pembayaran Kredit</th>
+                <th>Keterangan Supplier</th>
+                <th>Status Atif Supplier</th>
+                <th>Usertime</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msupplier in data_msupplier %}
+            <tr>
+                <td>{{ msupplier.kode_supplier}}</td>
+                <td>{{ msupplier.nama_supplier }}</td>
+                <td>{{ msupplier.npwp }}</td>
+                <td>{{ msupplier.status_pkp }}</td>
+                <td>{{ msupplier.alamat }}</td>
+                <td>{{ msupplier.nomor_telp }}</td>
+                <td>{{ msupplier.kontak_person_cp }}</td>
+                <td>{{ msupplier.kontak_hp_cp }}</td>
+                <td>{{ msupplier.nama_bank }}</td>
+                <td>{{ msupplier.nomor_rekening }}</td>
+                <td>{{ msupplier.periode_kunjungan }}</td>
+                <td>{{ msupplier.periode_pembayaran_kredit }}</td>
+                <td>{{ msupplier.keterangan_supplier }}</td>
+                <td>{{ msupplier.status_aktif_supllier }}</td>
+                <td>{{ msupplier.usertime }}</td>
+                <td class="td-btn">
+                    <a href="{% url 'upmsupplier' msupplier.kode_supplier %}"><button class="btn">
+                        <img src="/static/images/🦆 icon _edit_.svg" alt=""></button></a>
+                    <a onclick="return confirm('anda yakin menghapus satuan bertingktat dengan id = {{ msupplier.kode_supplier }}')"
+                            href="{% url 'delmsupplier' msupplier.kode_supplier %}"><button class="btn">
+                                <img src="/static/images/🦆 icon _trash_.svg" alt=""></button></a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
