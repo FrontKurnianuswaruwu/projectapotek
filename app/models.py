@@ -95,4 +95,4 @@ class msupplier(models.Model):
     periode_pembayaran_kredit = models.DateField()
     keterangan_supplier = models.CharField(max_length=200)
     status_aktif_supllier = models.CharField(max_length=1, choices=[('Y', 'Y'), ('T', 'T')], default='Y')
-    usertime = models.DateTimeField(auto_now=True)
+    usertime = models.DateTimeField(auto_now=True)  

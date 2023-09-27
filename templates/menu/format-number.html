@@ -1,0 +1,12 @@
+<script>
+    function formatNumber(input) {
+        // Menghapus tanda titik yang ada sebelumnya
+        let value = input.value.replace(/\./g, '');
+
+        // Menggunakan regex untuk menambahkan tanda titik sebagai pemisah ribuan
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+        // Mengatur nilai input dengan format yang sudah diformat
+        input.value = value;
+    }
+</script>

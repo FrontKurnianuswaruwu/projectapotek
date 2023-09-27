@@ -32,19 +32,19 @@
         </select>          <p>Barcode Terkecil :</p>
         <input type="text" name="barcode_terkecil" id="barcode_terkecil" maxlength="20" required>
         <p>Harga PL Sebelum PPN :</p>
-        <input type="number" name="harga_pl_sebelum_ppn" id="harga_pl_sebelum_ppn" maxlength="100" required>
+        <input type="text" name="harga_pl_sebelum_ppn" id="harga_pl_sebelum_ppn" oninput="formatNumber(this)" maxlength="100" required>
         <br>
         <p>Harga PL Sesudah PPN :</p>
-        <input type="number" name="harga_pl_sesudah_ppn" id="harga_pl_sesudah_ppn" maxlength="100" required>
+        <input type="text" name="harga_pl_sesudah_ppn" id="harga_pl_sesudah_ppn" oninput="formatNumber(this)" maxlength="100" required>
         <br>
         <p>Harga Pokok Penjualan :</p>
-        <input type="number" name="harga_pokok_penjualan" id="harga_pokok_penjualan" maxlength="100" required>
+        <input type="text" name="harga_pokok_penjualan" id="harga_pokok_penjualan" oninput="formatNumber(this)" maxlength="100" required>
         <br>
         <p>Margin Penjualan:</p>
-        <input type="number" name="margin_penjualan" id="margin_penjualan" maxlength="50" required>
+        <input type="text" name="margin_penjualan" id="margin_penjualan" maxlength="50" oninput="formatNumber(this)" required>
         <br>
         <p>Harga Penjualan Satuan Terkecil :</p>
-        <input type="number" name="harga_penjualan_sat_terkecil" id="harga_penjualan_sat_terkecil" maxlength="100" required>
+        <input type="text" name="harga_penjualan_sat_terkecil" id="harga_penjualan_sat_terkecil" maxlength="100" oninput="formatNumber(this)" required >
         <p>Kode Daftar Satuan :</p>
         <select name="kode_dafar_satuan" id="kode_dafar_satuan" required>
             <option value="" disabled selected>-Kode Daftar Satuan-</option>
@@ -62,6 +62,7 @@
         <br>
         <button type="submit">SUBMIT</button>
         <a href="{% url 'vmbarang' %}">Kembali</a>
+        {% include "menu/format-number.html" %}
 
     </form>
 </body>

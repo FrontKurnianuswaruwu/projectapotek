@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% include "menu/messages.html" %}
+    <form action="{% url 'postupmsupplier' %}" method="POST">
+        {% csrf_token %}
+        <h1>SUPPLIER</h1>
+        <p>Kode Supplier :</p>
+        <input type="text" name="kode_supplier" id="kode_supplier"  value="{{ data_msupplier.kode_supplier }}" required readonly>
+        <p>Nama Supplier :</p>
+        <input type="text" name="nama_supplier" id="nama_supplier"  value="{{ data_msupplier.nama_supplier }}" required>
+        <p>NPWP :</p>
+        <input type="text" name="npwp" id="npwp"  value="{{ data_msupplier.npwp }}" required>
+        <p>Status PKP :</p>
+        <select name="status_pkp" id="status_pkp" >
+            <option value="{{ data_msupplier.status_pkp }}"  >{{ data_msupplier.status_pkp }}</option>
+            <option>Y</option>
+            <option>T</option>
+        </select>
+        <p>Alamat :</p>
+        <input type="text" name="alamat" id="alamat"  value="{{ data_msupplier.alamat }}" required>
+        <p>Nomor Telepon :</p>
+        <input type="text" name="nomor_telp" id="nomor_telp"  value="{{ data_msupplier.nomor_telp }}" required>
+        <p>Kontak Person :</p>
+        <input type="text" name="kontak_person_cp" id="kontak_person_cp"  value="{{ data_msupplier.kontak_person_cp }}" required>
+        <p>Kontak Hp :</p>
+        <input type="text" name="kontak_hp_cp" id="kontak_hp_cp"  value="{{ data_msupplier.kontak_hp_cp }}" required>
+        <p>Nama Bank :</p>
+        <input type="text" name="nama_bank" id="nama_bank"  value="{{ data_msupplier.nama_bank }}" required>
+        <p>Nomor Rekening :</p>
+        <input type="text" name="nomor_rekening" id="nomor_rekening"  value="{{ data_msupplier.nomor_rekening }}" required>
+        <p>Periode Kunjungan :</p>
+        <input type="date" name="periode_kunjungan" id="periode_kunjungan"  value="{{ data_msupplier.periode_kunjungan|date:"Y-m-d" }}" required>
+        <p>Periode Pembayaran Kredit :</p>
+        <input type="date" name="periode_pembayaran_kredit" id="periode_pembayaran_kredit"  value="{{ data_msupplier.periode_pembayaran_kredit|date:"Y-m-d" }}" required>
+        <p>Keterangan Supplier :</p>
+        <input type="text" name="keterangan_supplier" id="keterangan_supplier"  value="{{ data_msupplier.keterangan_supplier }}" required>
+        <p>Satatus Aktif Supplier :</p>
+        <select name="status_aktif_supllier" id="status_aktif_supllier" >
+            <option value="{{ data_msupplier.status_aktif_supllier }}"  >{{ data_msupplier.status_aktif_supllier }}</option>
+            <option>Y</option>
+            <option>T</option>
+        </select>
+        <p>Usertime :</p>
+        <input type="text" name="usertime" id="usertime"  value="{{ data_msupplier.usertime }}" required>
+        <br>
+        <br>
+        <button type="submit">SUBMIT</button>
+        <a href="{% url 'vmsupplier' %}">Kembali</a>
+
+    </form>
+</body>
+
+</html>

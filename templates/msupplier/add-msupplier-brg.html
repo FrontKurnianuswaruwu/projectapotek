@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% include "menu/messages.html" %}
+
+    <form action="{% url 'postaddmsupplier' %}" method="POST">
+        {% csrf_token %}
+        <h1>Supplier</h1>
+        <p>Nama Supplier :</p>
+        <input type="text" name="nama_supplier" id="nama_supplier" maxlength="50" required>
+        <p>NPWP :</p>
+        <input type="text" name="npwp" id="npwp" maxlength="20" required>
+        <p>Satatus PKP :</p>
+        <select name="status_pkp" id="status_pkp" >
+            <option disabled selected>-Satatus PKP-</option>
+            <option>Y</option>
+            <option>T</option>
+        </select>
+        <p>Alamat :</p>
+        <input type="text" name="alamat" id="alamat" maxlength="100" required>
+        <p>Nomor Telepon :</p>
+        <input type="number" name="nomor_telp" id="nomor_telp" maxlength="20" required>
+        <p>Kontak Person :</p>
+        <input type="number" name="kontak_person_cp" id="kontak_person_cp" maxlength="20" required>
+        <p>Kontak Hp :</p>
+        <input type="number" name="kontak_hp_cp" id="kontak_hp_cp" maxlength="20" required>
+        <p>Nama Bank :</p>
+        <input type="text" name="nama_bank" id="nama_bank" maxlength="20" required>
+        <p>Nomor Rekening :</p>
+        <input type="number" name="nomor_rekening" id="nomor_rekening" maxlength="20" required>
+        <p>Periode Kunjungan :</p>
+        <input type="date" name="periode_kunjungan" id="periode_kunjungan"  required>
+        <p>Periode Pembayaran Kredit :</p>
+        <input type="date" name="periode_pembayaran_kredit" id="periode_pembayaran_kredit"  required>
+        <p>Keterangan Supplier :</p>
+        <input type="textarea" name="keterangan_supplier" id="keterangan_supplier" maxlength="200" required>
+        <p>Satatus Aktif Supplier :</p>
+        <select name="status_aktif_supllier" id="status_aktif_supllier" >
+            <option disabled selected>-Satatus Aktif-</option>
+            <option>Y</option>
+            <option>T</option>
+        </select>
+        <br>
+        <br>
+        <button type="submit">SUBMIT</button>
+        <a href="{% url 'v' %}">Kembali</a>
+
+    </form>
+</body>
+
+</html>

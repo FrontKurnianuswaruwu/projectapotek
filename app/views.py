@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Kelompok,mapotik,mjenis,msatuan,mdafsat,admin,mprofil,mbarang
+from .models import *
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.hashers import make_password
@@ -687,10 +687,117 @@ def postupmprofil(request):
     return redirect(request.META.get('HTTP_REFERER', '/'))
 #End Mprofil
 
+#mbrgsat
 def addmbrgsat(request):
     data_mbarang = mbarang.objects.all()
     context = {
         'data_mbarang' : data_mbarang
     }
     return render(request, 'mbrgsat/add-mbrgsat-brg.html', context)
+
+#addmsupplier
+def addmsupplier(request):
+    return render(request, 'msupplier/add-msupplier-brg.html')
+
+def postaddmsupplier(request):
+    nama_supplier = request.POST['nama_supplier']
+    npwp = request.POST['npwp']
+    status_pkp = request.POST['status_pkp']
+    alamat = request.POST['alamat']
+    nomor_telp = request.POST['nomor_telp']
+    kontak_person_cp = request.POST['kontak_person_cp']
+    kontak_hp_cp = request.POST['kontak_hp_cp']
+    nama_bank = request.POST['nama_bank']
+    nomor_rekening = request.POST['nomor_rekening']
+    periode_kunjungan = request.POST['periode_kunjungan']
+    periode_pembayaran_kredit = request.POST['periode_pembayaran_kredit']
+    keterangan_supplier = request.POST['keterangan_supplier']
+    status_aktif_supllier = request.POST['status_aktif_supllier']
     
+     # Ambil huruf pertama dari nama_kelompok
+    first_letter = nama_supplier[0].upper()
+    # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_jenis = msupplier.objects.filter(kode_supplier__startswith=first_letter)
+    # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_jenis.filter(kode_supplier=first_letter + str(number).zfill(3)).exists():
+        number += 1
+    # Setel kode_kelompok dengan format yang sesuai
+    kode_supplier = first_letter + str(number).zfill(3)
+    
+    data_msupplier = msupplier(
+        kode_supplier = kode_supplier ,
+        nama_supplier = nama_supplier,
+        npwp = npwp,
+        status_pkp = status_pkp,
+        alamat = alamat,
+        nomor_telp = nomor_telp,
+        kontak_person_cp = kontak_person_cp,
+        kontak_hp_cp = kontak_hp_cp,
+        nama_bank = nama_bank,
+        nomor_rekening = nomor_rekening,
+        periode_kunjungan = periode_kunjungan,
+        periode_pembayaran_kredit = periode_pembayaran_kredit,
+        keterangan_supplier = keterangan_supplier,
+        status_aktif_supllier = status_aktif_supllier
+    )
+    data_msupplier.save()
+    messages.success(request,'BERHASIL TAMBAH SUPPPLIER')
+    return redirect('vmsupplier')    
+
+def vmsupplier(request):
+    data_msupplier = msupplier.objects.all()
+    context = {
+        'data_msupplier' : data_msupplier
+    }
+    return render(request, 'msupplier/v-msupplier-brg.html',context)
+ 
+def upmsupplier(request, kode_supplier):
+    data_msupplier = msupplier.objects.get(kode_supplier = kode_supplier)
+    context = {
+        'data_msupplier' : data_msupplier
+    }   
+    return render(request, 'msupplier/up-msupplier-brg.html',context)
+
+def postupmsupplier(request):
+    kode_supplier = request.POST['kode_supplier']
+    nama_supplier = request.POST['nama_supplier']
+    npwp = request.POST['npwp']
+    status_pkp = request.POST['status_pkp']
+    alamat = request.POST['alamat']
+    nomor_telp = request.POST['nomor_telp']
+    kontak_person_cp = request.POST['kontak_person_cp']
+    kontak_hp_cp = request.POST['kontak_hp_cp']
+    nama_bank = request.POST['nama_bank']
+    nomor_rekening = request.POST['nomor_rekening']
+    periode_kunjungan = request.POST['periode_kunjungan']
+    periode_pembayaran_kredit = request.POST['periode_pembayaran_kredit']
+    keterangan_supplier = request.POST['keterangan_supplier']
+    status_aktif_supllier = request.POST['status_aktif_supllier']
+    usertime = request.POST['usertime']
+    
+    data_msupplier = msupplier.objects.get(kode_supplier=kode_supplier)
+    data_msupplier.kode_supplier = kode_supplier
+    data_msupplier.nama_supplier = nama_supplier
+    data_msupplier.npwp = npwp
+    data_msupplier.status_pkp = status_pkp
+    data_msupplier.alamat = alamat
+    data_msupplier.nomor_telp = nomor_telp
+    data_msupplier.kontak_person_cp = kontak_person_cp
+    data_msupplier.kontak_hp_cp = kontak_hp_cp
+    data_msupplier.nama_bank = nama_bank
+    data_msupplier.nomor_rekening = nomor_rekening
+    data_msupplier.periode_kunjungan = periode_kunjungan
+    data_msupplier.periode_pembayaran_kredit = periode_pembayaran_kredit
+    data_msupplier.keterangan_supplier = keterangan_supplier
+    data_msupplier.status_aktif_supllier = status_aktif_supllier
+    data_msupplier.usertime = usertime
+    
+    data_msupplier.save()
+    messages.success(request,'BERHASIL UPDATE')
+    return redirect('vmsupplier')
+ 
+def delmsupplier(request, kode_supplier):
+    msupplier.objects.get(kode_supplier=kode_supplier).delete()
+    messages.success(request, 'BERHASIL HAPUS DATA')
+    return redirect('vmsupplier')       
